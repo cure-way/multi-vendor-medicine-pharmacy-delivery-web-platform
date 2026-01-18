@@ -1,14 +1,6 @@
 // app/layout.tsx
 import "../styles/global.css";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "Online Pharmacy",
-  description: "Pharmacy UI built with Next.js and Tailwind CSS",
-};
 
 export default function RootLayout({
   children,
@@ -17,7 +9,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
