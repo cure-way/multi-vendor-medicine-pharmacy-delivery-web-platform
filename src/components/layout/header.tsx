@@ -81,7 +81,7 @@ export default function Header() {
               />
             </div>
             {currencyOpen && (
-              <div className="absolute top-full mt-1 right-0 bg-white rounded-lg shadow-lg border border-gray-200 py-1 min-w-[100px] z-50">
+              <div className="absolute top-full mt-1 right-0 bg-white rounded-lg shadow-lg border border-gray-200 py-1 min-w-25 z-50">
                 {["USD", "EUR", "ILS"].map((currency) => (
                   <div
                     key={currency}
@@ -117,7 +117,7 @@ export default function Header() {
               />
             </div>
             {languageOpen && (
-              <div className="absolute top-full mt-1 right-0 bg-white rounded-lg shadow-lg border border-gray-200 py-1 min-w-[120px] z-50">
+              <div className="absolute top-full mt-1 right-0 bg-white rounded-lg shadow-lg border border-gray-200 py-1 min-w-30 z-50">
                 {[
                   { value: "English", label: "English" },
                   { value: "العربية", label: "العربية" },
@@ -166,7 +166,7 @@ export default function Header() {
         </div>
 
         <div className="flex items-center gap-4 shrink-0">
-          <div className="bg-[#f4f4f4] flex items-center gap-2 h-11 px-2 rounded-lg w-[180px]">
+          <div className="bg-[#f4f4f4] flex items-center gap-2 h-11 px-2 rounded-lg w-45">
             <FiMapPin className="w-4 h-4 text-black/60 shrink-0" />
             <div className="flex-1 flex flex-col gap-1 justify-center">
               <p className="text-xs font-semibold text-black/50">
