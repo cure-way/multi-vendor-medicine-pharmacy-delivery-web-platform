@@ -1,8 +1,4 @@
-// app/layout.tsx
-"use client";
-
-import { usePathname } from "next/navigation";
-import Header from "../components/layout/header";
+import ConditionalHeader from "./ConditionalHeader";
 import "../styles/global.css";
 
 export default function RootLayout({
@@ -10,13 +6,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
-  const isAuthPage = pathname?.startsWith("/auth");
-
   return (
     <html lang="en">
       <body>
-        {!isAuthPage && <Header />}
+        <ConditionalHeader />
         {children}
       </body>
     </html>

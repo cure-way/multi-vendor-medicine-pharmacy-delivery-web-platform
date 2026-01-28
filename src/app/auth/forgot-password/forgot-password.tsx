@@ -12,7 +12,7 @@ import {
 } from "@/types/auth";
 import AuthLayout from "@/components/layout/AuthLayout";
 import { Input } from "@/components/ui/Input";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 
 export default function ForgotPassword() {
   const [emailSent, setEmailSent] = useState(false);
@@ -69,8 +69,8 @@ export default function ForgotPassword() {
                   Forgot Password?
                 </h1>
                 <p className="text-sm text-center text-gray-500 max-w-md mt-2">
-                  No worries! Enter your email address and we'll send you a link
-                  to reset your password.
+                  No worries! Enter your email address and we&apos;ll send you a
+                  link to reset your password.
                 </p>
               </div>
 
@@ -122,7 +122,7 @@ export default function ForgotPassword() {
                   Check your email
                 </h2>
                 <p className="text-sm text-center text-gray-500 max-w-md px-4">
-                  We've sent a password reset link to{" "}
+                  We&apos;ve sent a password reset link to{" "}
                   <span className="font-medium text-gray-900">
                     {submittedEmail}
                   </span>
@@ -132,7 +132,7 @@ export default function ForgotPassword() {
 
               <div className="flex flex-col gap-3 w-full mt-4">
                 <Button onClick={handleTryAgain} variant="outline">
-                  Didn't receive the email?
+                  Didn&apos;t receive the email?
                 </Button>
 
                 <Link
@@ -144,8 +144,8 @@ export default function ForgotPassword() {
               </div>
 
               <p className="text-xs text-center text-gray-400 max-w-sm mt-4">
-                If you don't see the email, check your spam folder or try again
-                with a different email address.
+                If you don&apos;t see the email, check your spam folder or try
+                again with a different email address.
               </p>
             </motion.div>
           )}

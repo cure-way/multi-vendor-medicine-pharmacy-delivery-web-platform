@@ -1,8 +1,7 @@
 "use client";
 
 import { FaChevronDown, FaPhoneAlt } from "react-icons/fa";
-import { FiMapPin, FiMic } from "react-icons/fi";
-import { IoSearchOutline } from "react-icons/io5";
+import { FiMapPin } from "react-icons/fi";
 import { MdOutlineAttachMoney, MdOutlineTranslate } from "react-icons/md";
 import Image from "next/image";
 import Link from "next/link";

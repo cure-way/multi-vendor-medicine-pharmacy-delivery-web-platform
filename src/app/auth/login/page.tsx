@@ -9,7 +9,7 @@ import { loginSchema, type LoginFormData } from "@/types/auth";
 import AuthLayout from "@/components/layout/AuthLayout";
 import { Input } from "@/components/ui/Input";
 import { PasswordInput } from "@/components/ui/PasswordInput";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import {
   AuthHeader,
   AuthDivider,
@@ -122,7 +122,7 @@ export default function Login() {
         />
 
         <p className="text-sm text-center mt-2">
-          <span className="text-gray-600">Don't have an account? </span>
+          <span className="text-gray-600">Don&apos;t have an account? </span>
           <Link
             href="/auth/register"
             className="text-gray-900 font-medium hover:underline transition-colors"

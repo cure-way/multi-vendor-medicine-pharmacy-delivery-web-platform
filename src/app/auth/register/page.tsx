@@ -16,7 +16,7 @@ import AuthLayout from "@/components/layout/AuthLayout";
 import { Input } from "@/components/ui/Input";
 import { PasswordInput } from "@/components/ui/PasswordInput";
 import { PhoneInput } from "@/components/ui/PhoneInput";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import { OTPInput } from "@/components/ui/OTPInput";
 import {
   AuthHeader,
@@ -321,7 +321,7 @@ export default function Register() {
                     : `Resend code in ${emailOTP.countdown}s`}
                 </button>
                 <p className="text-xs text-gray-400">
-                  Didn't receive the code? Check your spam folder
+                  Didn&apos;t receive the code? Check your spam folder
                 </p>
               </div>
             </div>

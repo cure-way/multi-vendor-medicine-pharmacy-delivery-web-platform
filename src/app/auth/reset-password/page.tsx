@@ -9,7 +9,7 @@ import { resetPasswordSchema, type ResetPasswordFormData } from "@/types/auth";
 import { usePasswordValidation } from "@/hooks/usePasswordValidation";
 import AuthLayout from "@/components/layout/AuthLayout";
 import { PasswordInput } from "@/components/ui/PasswordInput";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import { PasswordRequirements } from "@/components/auth/AuthComponents";
 
 function ResetPasswordForm() {
