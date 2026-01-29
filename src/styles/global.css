@@ -1,2 +1,38 @@
 @import "tailwindcss";
 @import "./phone-input.css";
+
+@theme inline {
+  /* Primary – subtle (backgrounds, badges) */
+  --color-primary-subtle: #ebedf7;
+  --color-primary-subtle-hover: #e0e4f3;
+  --color-primary-subtle-active: #c0c8e5;
+
+  /* Primary – default (buttons, links) */
+  --color-primary: #334eac;
+  --color-primary-hover: #2e469b;
+  --color-primary-active: #293e8a;
+
+  /* Primary – strong (emphasis, headers) */
+  --color-primary-strong: #263b81;
+  --color-primary-strong-hover: #1f2f67;
+  --color-primary-strong-active: #17234d;
+
+  /* Primary – darkest */
+  --color-primary-inverse: #121b3c;
+}
+
+@theme inline {
+  --color-secondary-subtle: #eff3fb;
+  --color-secondary-subtle-hover: #edf0fa;
+  --color-secondary-subtle-active: #cdd9f4;
+
+  --color-secondary: #5f85db;
+  --color-secondary-hover: #5678c5;
+  --color-secondary-active: #4c6aaf;
+
+  --color-secondary-strong: #4764a4;
+  --color-secondary-strong-hover: #395083;
+  --color-secondary-strong-active: #2b3c63;
+
+  --color-secondary-inverse: #21214d;
+}
