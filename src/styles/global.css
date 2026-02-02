@@ -17,22 +17,28 @@
   --color-primary-strong-hover: #1f2f67;
   --color-primary-strong-active: #17234d;
 
-  /* Primary – darkest */
+  /* Primary – inverse (darkest) */
   --color-primary-inverse: #121b3c;
-}
+  --color-primary-inverse-hover: #0f1630;
+  --color-primary-inverse-active: #0c1124;
 
-@theme inline {
+  /* Secondary – subtle (backgrounds, badges) */
   --color-secondary-subtle: #eff3fb;
   --color-secondary-subtle-hover: #edf0fa;
   --color-secondary-subtle-active: #cdd9f4;
 
+  /* Secondary – default (buttons, links) */
   --color-secondary: #5f85db;
   --color-secondary-hover: #5678c5;
   --color-secondary-active: #4c6aaf;
 
+  /* Secondary – strong (emphasis, headers) */
   --color-secondary-strong: #4764a4;
   --color-secondary-strong-hover: #395083;
   --color-secondary-strong-active: #2b3c63;
 
+  /* Secondary – inverse (darkest) */
   --color-secondary-inverse: #21214d;
+  --color-secondary-inverse-hover: #1b1b3f;
+  --color-secondary-inverse-active: #151532;
 }
