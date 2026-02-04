@@ -5,21 +5,18 @@ import { SearchFilter, SearchResult } from "@/types/search";
 import { useRouter } from "next/navigation";
 import { useSearchRecents } from "@/hooks/search/useSearchRecents";
 
-type SearchContextValue = {
+interface SearchContextValue {
   query: string;
   setQuery: React.Dispatch<React.SetStateAction<string>>;
-
   open: boolean;
   setOpen: (v: boolean) => void;
-
   appliedFilters: SearchFilter[];
   setAppliedFilters: React.Dispatch<React.SetStateAction<SearchFilter[]>>;
-
   activeIndex: number;
   setActiveIndex: (v: number) => void;
   inputRef: RefObject<HTMLInputElement | null>;
   handleSelect: (item: SearchResult) => void;
-};
+}
 
 const SearchContext = createContext<SearchContextValue | null>(null);
 
@@ -53,7 +50,7 @@ export function SearchProvider({ children }: { children: React.ReactNode }) {
     addToRecents(item);
     setOpen(false);
     inputRef.current?.blur();
-    router.push(`/medicine/${item.id}`);
+    router.push(`/medicines/${item.id}`);
   };
 
   return (
