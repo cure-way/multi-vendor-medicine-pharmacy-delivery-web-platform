@@ -1,38 +1,1064 @@
 @import "tailwindcss";
 @import "./phone-input.css";
 
-@theme inline {
-  /* Primary – subtle (backgrounds, badges) */
-  --color-primary-subtle: #ebedf7;
-  --color-primary-subtle-hover: #e0e4f3;
-  --color-primary-subtle-active: #c0c8e5;
+/* ============================================================
+   CUREWAY DESIGN SYSTEM TOKENS
+   Based on: public/docs/design-system/
+   ============================================================ */
 
-  /* Primary – default (buttons, links) */
-  --color-primary: #334eac;
-  --color-primary-hover: #2e469b;
-  --color-primary-active: #293e8a;
+/* ============================================================
+   CSS CUSTOM PROPERTIES (HSL Format for flexibility)
+   ============================================================ */
+:root {
+  /* --------------------------------------------------------
+     COLOR PALETTE - Primary (CureWay Blue)
+     From Color.png: Light → Darker progression
+     -------------------------------------------------------- */
+  --primary-light: 228 37% 89%; /* #E1E5F3 - Light */
+  --primary-light-hover: 228 35% 85%; /* #D4DAF0 - Light hover */
+  --primary-light-active: 228 33% 75%; /* #B4BDE3 - Light active */
+  --primary: 228 54% 44%; /* #344EAC - Normal (main brand) */
+  --primary-hover: 228 54% 40%; /* #2E469B - Normal hover */
+  --primary-active: 228 54% 35%; /* #283D87 - Normal active */
+  --primary-dark: 228 54% 33%; /* #263A81 - Dark */
+  --primary-dark-hover: 228 54% 27%; /* #1F3069 - Dark hover */
+  --primary-dark-active: 228 54% 20%; /* #172350 - Dark active */
+  --primary-darker: 228 54% 16%; /* #121C3F - Darker */
 
-  /* Primary – strong (emphasis, headers) */
-  --color-primary-strong: #263b81;
-  --color-primary-strong-hover: #1f2f67;
-  --color-primary-strong-active: #17234d;
+  /* --------------------------------------------------------
+     COLOR PALETTE - Secondary
+     From Color.png
+     -------------------------------------------------------- */
+  --secondary-light: 220 60% 96%; /* #EFF3FB - Light */
+  --secondary-light-hover: 220 50% 94%; /* #EBF0FA - Light hover */
+  --secondary-light-active: 220 60% 88%; /* #D5E0F6 - Light active */
+  --secondary: 220 62% 62%; /* #5F85DB - Normal */
+  --secondary-hover: 220 55% 56%; /* #5478C5 - Normal hover */
+  --secondary-active: 220 48% 50%; /* #4A6BAF - Normal active */
+  --secondary-dark: 220 38% 46%; /* #4764A4 - Dark */
+  --secondary-dark-hover: 220 38% 37%; /* #395083 - Dark hover */
+  --secondary-dark-active: 220 38% 28%; /* #2B3C62 - Dark active */
+  --secondary-darker: 230 40% 22%; /* #22224E - Darker */
 
-  /* Primary – darkest */
-  --color-primary-inverse: #121b3c;
+  /* --------------------------------------------------------
+     COLOR PALETTE - Error (Red)
+     From Color.png
+     -------------------------------------------------------- */
+  --error-light: 0 60% 94%; /* #FAEBEB - Light */
+  --error-light-hover: 0 55% 90%; /* #F5DCDC - Light hover */
+  --error-light-active: 0 50% 82%; /* #EAC0C0 - Light active */
+  --error: 0 65% 51%; /* #D43B3B - Normal */
+  --error-hover: 0 65% 46%; /* #BF3535 - Normal hover */
+  --error-active: 0 65% 40%; /* #A62E2E - Normal active */
+  --error-dark: 0 65% 38%; /* #9F2C2C - Dark */
+  --error-dark-hover: 0 65% 30%; /* #7E2323 - Dark hover */
+  --error-dark-active: 0 65% 23%; /* #5E1A1A - Dark active */
+  --error-darker: 0 65% 18%; /* #4A1414 - Darker */
+
+  /* --------------------------------------------------------
+     COLOR PALETTE - Warning (Yellow/Orange)
+     From Color.png
+     -------------------------------------------------------- */
+  --warning-light: 45 80% 94%; /* #FDF5E1 - Light */
+  --warning-light-hover: 45 75% 90%; /* #FAEED4 - Light hover */
+  --warning-light-active: 45 70% 82%; /* #F5E0B4 - Light active */
+  --warning: 45 85% 55%; /* #E8C13E - Normal */
+  --warning-hover: 45 80% 49%; /* #D1AD37 - Normal hover */
+  --warning-active: 45 80% 43%; /* #B89730 - Normal active */
+  --warning-dark: 45 75% 40%; /* #AF8F2E - Dark */
+  --warning-dark-hover: 45 75% 32%; /* #8C7224 - Dark hover */
+  --warning-dark-active: 45 75% 24%; /* #69561B - Dark active */
+  --warning-darker: 45 75% 19%; /* #534415 - Darker */
+
+  /* --------------------------------------------------------
+     COLOR PALETTE - Success (Green)
+     From Color.png
+     -------------------------------------------------------- */
+  --success-light: 145 50% 92%; /* #E4F5EB - Light */
+  --success-light-hover: 145 45% 87%; /* #D4EFDF - Light hover */
+  --success-light-active: 145 40% 77%; /* #B2E2C6 - Light active */
+  --success: 145 55% 42%; /* #30A35C - Normal */
+  --success-hover: 145 55% 38%; /* #2B9353 - Normal hover */
+  --success-active: 145 55% 33%; /* #258148 - Normal active */
+  --success-dark: 145 55% 31%; /* #237A44 - Dark */
+  --success-dark-hover: 145 55% 25%; /* #1C6236 - Dark hover */
+  --success-dark-active: 145 55% 19%; /* #154929 - Dark active */
+  --success-darker: 145 55% 15%; /* #103A21 - Darker */
+
+  /* --------------------------------------------------------
+     COLOR PALETTE - Neutral (Gray scale)
+     From Color.png
+     -------------------------------------------------------- */
+  --neutral-light: 220 15% 96%; /* #F3F4F6 - Light */
+  --neutral-light-hover: 220 13% 92%; /* #E8EAED - Light hover */
+  --neutral-light-active: 220 12% 84%; /* #D1D5DC - Light active */
+  --neutral: 220 10% 60%; /* #8F96A3 - Normal */
+  --neutral-hover: 220 10% 54%; /* #808793 - Normal hover */
+  --neutral-active: 220 10% 47%; /* #6F7682 - Normal active */
+  --neutral-dark: 220 10% 44%; /* #686F7A - Dark */
+  --neutral-dark-hover: 220 10% 35%; /* #535962 - Dark hover */
+  --neutral-dark-active: 220 10% 26%; /* #3E4349 - Dark active */
+  --neutral-darker: 220 10% 20%; /* #313539 - Darker */
+
+  /* --------------------------------------------------------
+     SHADES - Black & White
+     -------------------------------------------------------- */
+  --shade-white: 0 0% 100%; /* #FFFFFF */
+  --shade-black: 0 0% 0%; /* #000000 */
+
+  /* --------------------------------------------------------
+     SEMANTIC TOKENS - For Component Theming
+     (shadcn/ui compatible format)
+     -------------------------------------------------------- */
+  --background: 0 0% 100%;
+  --foreground: 228 54% 16%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 228 54% 16%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 228 54% 16%;
+
+  --muted: 220 15% 96%;
+  --muted-foreground: 220 10% 44%;
+
+  --accent: 220 60% 96%;
+  --accent-foreground: 228 54% 33%;
+
+  --destructive: 0 65% 51%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 220 13% 90%;
+  --input: 220 13% 90%;
+  --ring: 228 54% 44%;
+
+  /* --------------------------------------------------------
+     TYPOGRAPHY - Font Family
+     -------------------------------------------------------- */
+  --font-sans:
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+
+  /* --------------------------------------------------------
+     BORDER RADIUS - From Buttons.png & Inputs.png
+     -------------------------------------------------------- */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-full: 9999px;
+
+  /* --------------------------------------------------------
+     SHADOWS - From UI components
+     -------------------------------------------------------- */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg:
+    0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-card: 0 2px 8px 0 rgb(0 0 0 / 0.08);
+  --shadow-input-focus: 0 0 0 3px hsl(228 54% 44% / 0.15);
 }
 
+/* Dark mode support (optional - extend as needed) */
+.dark {
+  --background: 228 54% 10%;
+  --foreground: 220 15% 96%;
+
+  --card: 228 40% 14%;
+  --card-foreground: 220 15% 96%;
+
+  --popover: 228 40% 14%;
+  --popover-foreground: 220 15% 96%;
+
+  --muted: 228 30% 20%;
+  --muted-foreground: 220 10% 60%;
+
+  --accent: 228 30% 25%;
+  --accent-foreground: 220 15% 96%;
+
+  --border: 228 30% 25%;
+  --input: 228 30% 25%;
+  --ring: 228 54% 50%;
+}
+
+/* ============================================================
+   TAILWIND v4 THEME CONFIGURATION
+   ============================================================ */
 @theme inline {
-  --color-secondary-subtle: #eff3fb;
-  --color-secondary-subtle-hover: #edf0fa;
-  --color-secondary-subtle-active: #cdd9f4;
+  /* --------------------------------------------------------
+     COLOR TOKENS - Primary Palette
+     -------------------------------------------------------- */
+  --color-primary-light: hsl(var(--primary-light));
+  --color-primary-light-hover: hsl(var(--primary-light-hover));
+  --color-primary-light-active: hsl(var(--primary-light-active));
+  --color-primary: hsl(var(--primary));
+  --color-primary-hover: hsl(var(--primary-hover));
+  --color-primary-active: hsl(var(--primary-active));
+  --color-primary-dark: hsl(var(--primary-dark));
+  --color-primary-dark-hover: hsl(var(--primary-dark-hover));
+  --color-primary-dark-active: hsl(var(--primary-dark-active));
+  --color-primary-darker: hsl(var(--primary-darker));
 
-  --color-secondary: #5f85db;
-  --color-secondary-hover: #5678c5;
-  --color-secondary-active: #4c6aaf;
+  /* Numbered scale for convenience */
+  --color-primary-50: hsl(var(--primary-light));
+  --color-primary-100: hsl(var(--primary-light-hover));
+  --color-primary-200: hsl(var(--primary-light-active));
+  --color-primary-300: hsl(228 45% 65%);
+  --color-primary-400: hsl(228 50% 55%);
+  --color-primary-500: hsl(var(--primary));
+  --color-primary-600: hsl(var(--primary-hover));
+  --color-primary-700: hsl(var(--primary-dark));
+  --color-primary-800: hsl(var(--primary-dark-hover));
+  --color-primary-900: hsl(var(--primary-darker));
 
-  --color-secondary-strong: #4764a4;
-  --color-secondary-strong-hover: #395083;
-  --color-secondary-strong-active: #2b3c63;
+  /* --------------------------------------------------------
+     COLOR TOKENS - Secondary Palette
+     -------------------------------------------------------- */
+  --color-secondary-light: hsl(var(--secondary-light));
+  --color-secondary-light-hover: hsl(var(--secondary-light-hover));
+  --color-secondary-light-active: hsl(var(--secondary-light-active));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-hover: hsl(var(--secondary-hover));
+  --color-secondary-active: hsl(var(--secondary-active));
+  --color-secondary-dark: hsl(var(--secondary-dark));
+  --color-secondary-dark-hover: hsl(var(--secondary-dark-hover));
+  --color-secondary-dark-active: hsl(var(--secondary-dark-active));
+  --color-secondary-darker: hsl(var(--secondary-darker));
 
-  --color-secondary-inverse: #21214d;
+  /* Numbered scale */
+  --color-secondary-50: hsl(var(--secondary-light));
+  --color-secondary-100: hsl(var(--secondary-light-hover));
+  --color-secondary-200: hsl(var(--secondary-light-active));
+  --color-secondary-300: hsl(220 60% 75%);
+  --color-secondary-400: hsl(220 62% 68%);
+  --color-secondary-500: hsl(var(--secondary));
+  --color-secondary-600: hsl(var(--secondary-hover));
+  --color-secondary-700: hsl(var(--secondary-dark));
+  --color-secondary-800: hsl(var(--secondary-dark-hover));
+  --color-secondary-900: hsl(var(--secondary-darker));
+
+  /* --------------------------------------------------------
+     COLOR TOKENS - Error Palette
+     -------------------------------------------------------- */
+  --color-error-light: hsl(var(--error-light));
+  --color-error-light-hover: hsl(var(--error-light-hover));
+  --color-error-light-active: hsl(var(--error-light-active));
+  --color-error: hsl(var(--error));
+  --color-error-hover: hsl(var(--error-hover));
+  --color-error-active: hsl(var(--error-active));
+  --color-error-dark: hsl(var(--error-dark));
+  --color-error-dark-hover: hsl(var(--error-dark-hover));
+  --color-error-dark-active: hsl(var(--error-dark-active));
+  --color-error-darker: hsl(var(--error-darker));
+
+  /* Numbered scale */
+  --color-error-50: hsl(var(--error-light));
+  --color-error-100: hsl(var(--error-light-hover));
+  --color-error-200: hsl(var(--error-light-active));
+  --color-error-300: hsl(0 55% 70%);
+  --color-error-400: hsl(0 60% 60%);
+  --color-error-500: hsl(var(--error));
+  --color-error-600: hsl(var(--error-hover));
+  --color-error-700: hsl(var(--error-dark));
+  --color-error-800: hsl(var(--error-dark-hover));
+  --color-error-900: hsl(var(--error-darker));
+
+  /* --------------------------------------------------------
+     COLOR TOKENS - Warning Palette
+     -------------------------------------------------------- */
+  --color-warning-light: hsl(var(--warning-light));
+  --color-warning-light-hover: hsl(var(--warning-light-hover));
+  --color-warning-light-active: hsl(var(--warning-light-active));
+  --color-warning: hsl(var(--warning));
+  --color-warning-hover: hsl(var(--warning-hover));
+  --color-warning-active: hsl(var(--warning-active));
+  --color-warning-dark: hsl(var(--warning-dark));
+  --color-warning-dark-hover: hsl(var(--warning-dark-hover));
+  --color-warning-dark-active: hsl(var(--warning-dark-active));
+  --color-warning-darker: hsl(var(--warning-darker));
+
+  /* Numbered scale */
+  --color-warning-50: hsl(var(--warning-light));
+  --color-warning-100: hsl(var(--warning-light-hover));
+  --color-warning-200: hsl(var(--warning-light-active));
+  --color-warning-300: hsl(45 75% 70%);
+  --color-warning-400: hsl(45 80% 62%);
+  --color-warning-500: hsl(var(--warning));
+  --color-warning-600: hsl(var(--warning-hover));
+  --color-warning-700: hsl(var(--warning-dark));
+  --color-warning-800: hsl(var(--warning-dark-hover));
+  --color-warning-900: hsl(var(--warning-darker));
+
+  /* --------------------------------------------------------
+     COLOR TOKENS - Success Palette
+     -------------------------------------------------------- */
+  --color-success-light: hsl(var(--success-light));
+  --color-success-light-hover: hsl(var(--success-light-hover));
+  --color-success-light-active: hsl(var(--success-light-active));
+  --color-success: hsl(var(--success));
+  --color-success-hover: hsl(var(--success-hover));
+  --color-success-active: hsl(var(--success-active));
+  --color-success-dark: hsl(var(--success-dark));
+  --color-success-dark-hover: hsl(var(--success-dark-hover));
+  --color-success-dark-active: hsl(var(--success-dark-active));
+  --color-success-darker: hsl(var(--success-darker));
+
+  /* Numbered scale */
+  --color-success-50: hsl(var(--success-light));
+  --color-success-100: hsl(var(--success-light-hover));
+  --color-success-200: hsl(var(--success-light-active));
+  --color-success-300: hsl(145 45% 60%);
+  --color-success-400: hsl(145 50% 50%);
+  --color-success-500: hsl(var(--success));
+  --color-success-600: hsl(var(--success-hover));
+  --color-success-700: hsl(var(--success-dark));
+  --color-success-800: hsl(var(--success-dark-hover));
+  --color-success-900: hsl(var(--success-darker));
+
+  /* --------------------------------------------------------
+     COLOR TOKENS - Neutral Palette
+     -------------------------------------------------------- */
+  --color-neutral-light: hsl(var(--neutral-light));
+  --color-neutral-light-hover: hsl(var(--neutral-light-hover));
+  --color-neutral-light-active: hsl(var(--neutral-light-active));
+  --color-neutral: hsl(var(--neutral));
+  --color-neutral-hover: hsl(var(--neutral-hover));
+  --color-neutral-active: hsl(var(--neutral-active));
+  --color-neutral-dark: hsl(var(--neutral-dark));
+  --color-neutral-dark-hover: hsl(var(--neutral-dark-hover));
+  --color-neutral-dark-active: hsl(var(--neutral-dark-active));
+  --color-neutral-darker: hsl(var(--neutral-darker));
+
+  /* Numbered scale */
+  --color-neutral-50: hsl(var(--neutral-light));
+  --color-neutral-100: hsl(var(--neutral-light-hover));
+  --color-neutral-200: hsl(var(--neutral-light-active));
+  --color-neutral-300: hsl(220 12% 75%);
+  --color-neutral-400: hsl(220 10% 68%);
+  --color-neutral-500: hsl(var(--neutral));
+  --color-neutral-600: hsl(var(--neutral-hover));
+  --color-neutral-700: hsl(var(--neutral-dark));
+  --color-neutral-800: hsl(var(--neutral-dark-hover));
+  --color-neutral-900: hsl(var(--neutral-darker));
+
+  /* --------------------------------------------------------
+     COLOR TOKENS - Shades
+     -------------------------------------------------------- */
+  --color-white: hsl(var(--shade-white));
+  --color-black: hsl(var(--shade-black));
+
+  /* --------------------------------------------------------
+     SEMANTIC COLOR TOKENS
+     -------------------------------------------------------- */
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  /* --------------------------------------------------------
+     TYPOGRAPHY - Font Sizes (from Typography.png)
+     Type@36, @30, @25, @21, @17, @14, @12, @10
+     -------------------------------------------------------- */
+  --font-size-t-36: 2.25rem; /* 36px */
+  --font-size-t-30: 1.875rem; /* 30px */
+  --font-size-t-25: 1.5625rem; /* 25px */
+  --font-size-t-21: 1.3125rem; /* 21px */
+  --font-size-t-17: 1.0625rem; /* 17px */
+  --font-size-t-14: 0.875rem; /* 14px */
+  --font-size-t-12: 0.75rem; /* 12px */
+  --font-size-t-10: 0.625rem; /* 10px */
+  --font-size-t-8: 0.5rem; /* 8px */
+
+  /* Line heights for typography scale */
+  --line-height-t-36: 2.75rem; /* 44px */
+  --line-height-t-30: 2.375rem; /* 38px */
+  --line-height-t-25: 2rem; /* 32px */
+  --line-height-t-21: 1.75rem; /* 28px */
+  --line-height-t-17: 1.5rem; /* 24px */
+  --line-height-t-14: 1.25rem; /* 20px */
+  --line-height-t-12: 1rem; /* 16px */
+  --line-height-t-10: 0.875rem; /* 14px */
+  --line-height-t-8: 0.75rem; /* 12px */
+
+  /* --------------------------------------------------------
+     SPACING SCALE (from Spacing.png)
+     2, 4, 8, 12, 20, 24, 32, 40, 48, 56, 64, 80 px
+     -------------------------------------------------------- */
+  --spacing-0\.5: 2px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-14: 56px;
+  --spacing-16: 64px;
+  --spacing-20: 80px;
+
+  /* --------------------------------------------------------
+     BORDER RADIUS
+     -------------------------------------------------------- */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-full: 9999px;
+
+  /* --------------------------------------------------------
+     BOX SHADOWS
+     -------------------------------------------------------- */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg:
+    0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-card: 0 2px 8px 0 rgb(0 0 0 / 0.08);
+  --shadow-input-focus: 0 0 0 3px hsl(228 54% 44% / 0.15);
+
+  /* --------------------------------------------------------
+     BREAKPOINTS (from Grid.png)
+     Mobile: 320-767px (1, 2, 4 columns)
+     Tablet: 768-1023px (8 columns)
+     Web: 1024+ (8, 12 columns)
+     -------------------------------------------------------- */
+  --breakpoint-xs: 320px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  /* --------------------------------------------------------
+     CONTAINER MAX WIDTHS
+     -------------------------------------------------------- */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1440px;
+}
+
+/* ============================================================
+   BASE LAYER - Global Styles
+   ============================================================ */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    border-color: hsl(var(--border));
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    line-height: 1.5;
+  }
+
+  /* Focus visible styles */
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+}
+
+/* ============================================================
+   COMPONENT LAYER - Base Component Styles
+   ============================================================ */
+@layer components {
+  /* --------------------------------------------------------
+     BUTTONS (from Buttons.png)
+     Variants: primary, outline
+     Sizes: sm, md, lg
+     States: default, hover, pressed, disabled
+     -------------------------------------------------------- */
+
+  /* Base button styles */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 500;
+    border-radius: var(--radius-lg);
+    transition: all 150ms ease-in-out;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .btn:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Button Sizes */
+  .btn-sm {
+    height: 32px;
+    padding: 0 12px;
+    font-size: var(--font-size-t-12);
+    line-height: var(--line-height-t-12);
+  }
+
+  .btn-md {
+    height: 40px;
+    padding: 0 16px;
+    font-size: var(--font-size-t-14);
+    line-height: var(--line-height-t-14);
+  }
+
+  .btn-lg {
+    height: 48px;
+    padding: 0 24px;
+    font-size: var(--font-size-t-17);
+    line-height: var(--line-height-t-17);
+  }
+
+  /* Primary Button */
+  .btn-primary {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--shade-white));
+    border: 1px solid transparent;
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background-color: hsl(var(--primary-hover));
+  }
+
+  .btn-primary:active:not(:disabled) {
+    background-color: hsl(var(--primary-active));
+  }
+
+  /* Outline Button */
+  .btn-outline {
+    background-color: transparent;
+    color: hsl(var(--primary));
+    border: 1px solid hsl(var(--border));
+  }
+
+  .btn-outline:hover:not(:disabled) {
+    background-color: hsl(var(--primary-light));
+    border-color: hsl(var(--primary-light-active));
+  }
+
+  .btn-outline:active:not(:disabled) {
+    background-color: hsl(var(--primary-light-active));
+  }
+
+  /* Icon-only button */
+  .btn-icon {
+    padding: 0;
+    aspect-ratio: 1;
+  }
+
+  .btn-icon.btn-sm {
+    width: 32px;
+  }
+
+  .btn-icon.btn-md {
+    width: 40px;
+  }
+
+  .btn-icon.btn-lg {
+    width: 48px;
+  }
+
+  /* Half-width button */
+  .btn-half {
+    width: 50%;
+  }
+
+  /* --------------------------------------------------------
+     INPUTS (from Inputs.png)
+     Sizes: sm, md, lg
+     States: default, active, typing, success, error, disabled, half
+     -------------------------------------------------------- */
+
+  /* Base input styles */
+  .input {
+    display: flex;
+    width: 100%;
+    border-radius: var(--radius-lg);
+    border: 1px solid hsl(var(--border));
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    transition:
+      border-color 150ms ease-in-out,
+      box-shadow 150ms ease-in-out;
+  }
+
+  .input::placeholder {
+    color: hsl(var(--muted-foreground));
+  }
+
+  .input:focus {
+    outline: none;
+    border-color: hsl(var(--primary));
+    box-shadow: var(--shadow-input-focus);
+  }
+
+  .input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: hsl(var(--muted));
+  }
+
+  /* Input Sizes */
+  .input-sm {
+    height: 36px;
+    padding: 0 12px;
+    font-size: var(--font-size-t-12);
+  }
+
+  .input-md {
+    height: 44px;
+    padding: 0 14px;
+    font-size: var(--font-size-t-14);
+  }
+
+  .input-lg {
+    height: 52px;
+    padding: 0 16px;
+    font-size: var(--font-size-t-17);
+  }
+
+  /* Input States */
+  .input-success {
+    border-color: hsl(var(--success));
+  }
+
+  .input-success:focus {
+    border-color: hsl(var(--success));
+    box-shadow: 0 0 0 3px hsl(var(--success) / 0.15);
+  }
+
+  .input-error {
+    border-color: hsl(var(--error));
+  }
+
+  .input-error:focus {
+    border-color: hsl(var(--error));
+    box-shadow: 0 0 0 3px hsl(var(--error) / 0.15);
+  }
+
+  /* Half-width input */
+  .input-half {
+    width: 50%;
+  }
+
+  /* Input with icon */
+  .input-with-icon {
+    position: relative;
+  }
+
+  .input-with-icon .input {
+    padding-left: 40px;
+  }
+
+  .input-with-icon .input-icon-left {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: hsl(var(--muted-foreground));
+    pointer-events: none;
+  }
+
+  .input-with-icon-right .input {
+    padding-right: 40px;
+  }
+
+  .input-with-icon-right .input-icon-right {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: hsl(var(--muted-foreground));
+  }
+
+  /* --------------------------------------------------------
+     CARDS
+     -------------------------------------------------------- */
+  .card {
+    background-color: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+    border-radius: var(--radius-xl);
+    border: 1px solid hsl(var(--border));
+    box-shadow: var(--shadow-card);
+  }
+
+  .card-header {
+    padding: 24px 24px 0;
+  }
+
+  .card-content {
+    padding: 24px;
+  }
+
+  .card-footer {
+    padding: 0 24px 24px;
+  }
+
+  /* --------------------------------------------------------
+     CONTAINER UTILITIES
+     -------------------------------------------------------- */
+  .container-page {
+    width: 100%;
+    max-width: var(--container-2xl);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  @media (min-width: 768px) {
+    .container-page {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-page {
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+  }
+}
+
+/* ============================================================
+   UTILITIES LAYER - Typography & Helpers
+   ============================================================ */
+@layer utilities {
+  /* --------------------------------------------------------
+     TYPOGRAPHY UTILITIES (from Typography.png)
+     Regular, SemiBold, Bold weights
+     -------------------------------------------------------- */
+
+  /* Regular weight type scale */
+  .text-t-36 {
+    font-size: var(--font-size-t-36);
+    line-height: var(--line-height-t-36);
+    font-weight: 400;
+  }
+
+  .text-t-30 {
+    font-size: var(--font-size-t-30);
+    line-height: var(--line-height-t-30);
+    font-weight: 400;
+  }
+
+  .text-t-25 {
+    font-size: var(--font-size-t-25);
+    line-height: var(--line-height-t-25);
+    font-weight: 400;
+  }
+
+  .text-t-21 {
+    font-size: var(--font-size-t-21);
+    line-height: var(--line-height-t-21);
+    font-weight: 400;
+  }
+
+  .text-t-17 {
+    font-size: var(--font-size-t-17);
+    line-height: var(--line-height-t-17);
+    font-weight: 400;
+  }
+
+  .text-t-14 {
+    font-size: var(--font-size-t-14);
+    line-height: var(--line-height-t-14);
+    font-weight: 400;
+  }
+
+  .text-t-12 {
+    font-size: var(--font-size-t-12);
+    line-height: var(--line-height-t-12);
+    font-weight: 400;
+  }
+
+  .text-t-10 {
+    font-size: var(--font-size-t-10);
+    line-height: var(--line-height-t-10);
+    font-weight: 400;
+  }
+
+  .text-t-8 {
+    font-size: var(--font-size-t-8);
+    line-height: var(--line-height-t-8);
+    font-weight: 400;
+  }
+
+  /* SemiBold type scale */
+  .text-t-36-semibold {
+    font-size: var(--font-size-t-36);
+    line-height: var(--line-height-t-36);
+    font-weight: 600;
+  }
+
+  .text-t-30-semibold {
+    font-size: var(--font-size-t-30);
+    line-height: var(--line-height-t-30);
+    font-weight: 600;
+  }
+
+  .text-t-25-semibold {
+    font-size: var(--font-size-t-25);
+    line-height: var(--line-height-t-25);
+    font-weight: 600;
+  }
+
+  .text-t-21-semibold {
+    font-size: var(--font-size-t-21);
+    line-height: var(--line-height-t-21);
+    font-weight: 600;
+  }
+
+  .text-t-17-semibold {
+    font-size: var(--font-size-t-17);
+    line-height: var(--line-height-t-17);
+    font-weight: 600;
+  }
+
+  .text-t-14-semibold {
+    font-size: var(--font-size-t-14);
+    line-height: var(--line-height-t-14);
+    font-weight: 600;
+  }
+
+  .text-t-12-semibold {
+    font-size: var(--font-size-t-12);
+    line-height: var(--line-height-t-12);
+    font-weight: 600;
+  }
+
+  .text-t-10-semibold {
+    font-size: var(--font-size-t-10);
+    line-height: var(--line-height-t-10);
+    font-weight: 600;
+  }
+
+  /* Bold type scale */
+  .text-t-36-bold {
+    font-size: var(--font-size-t-36);
+    line-height: var(--line-height-t-36);
+    font-weight: 700;
+  }
+
+  .text-t-30-bold {
+    font-size: var(--font-size-t-30);
+    line-height: var(--line-height-t-30);
+    font-weight: 700;
+  }
+
+  .text-t-25-bold {
+    font-size: var(--font-size-t-25);
+    line-height: var(--line-height-t-25);
+    font-weight: 700;
+  }
+
+  .text-t-21-bold {
+    font-size: var(--font-size-t-21);
+    line-height: var(--line-height-t-21);
+    font-weight: 700;
+  }
+
+  .text-t-17-bold {
+    font-size: var(--font-size-t-17);
+    line-height: var(--line-height-t-17);
+    font-weight: 700;
+  }
+
+  .text-t-14-bold {
+    font-size: var(--font-size-t-14);
+    line-height: var(--line-height-t-14);
+    font-weight: 700;
+  }
+
+  .text-t-12-bold {
+    font-size: var(--font-size-t-12);
+    line-height: var(--line-height-t-12);
+    font-weight: 700;
+  }
+
+  .text-t-10-bold {
+    font-size: var(--font-size-t-10);
+    line-height: var(--line-height-t-10);
+    font-weight: 700;
+  }
+
+  /* Semantic typography classes */
+  .text-title {
+    font-size: var(--font-size-t-30);
+    line-height: var(--line-height-t-30);
+    font-weight: 700;
+  }
+
+  .text-subtitle {
+    font-size: var(--font-size-t-21);
+    line-height: var(--line-height-t-21);
+    font-weight: 600;
+  }
+
+  .text-body {
+    font-size: var(--font-size-t-14);
+    line-height: var(--line-height-t-14);
+    font-weight: 400;
+  }
+
+  .text-body-large {
+    font-size: var(--font-size-t-17);
+    line-height: var(--line-height-t-17);
+    font-weight: 400;
+  }
+
+  .text-caption {
+    font-size: var(--font-size-t-12);
+    line-height: var(--line-height-t-12);
+    font-weight: 400;
+  }
+
+  .text-small {
+    font-size: var(--font-size-t-10);
+    line-height: var(--line-height-t-10);
+    font-weight: 400;
+  }
+
+  /* --------------------------------------------------------
+     SPACING UTILITIES (exact pixel values)
+     -------------------------------------------------------- */
+  .gap-2px {
+    gap: 2px;
+  }
+  .gap-4px {
+    gap: 4px;
+  }
+  .gap-8px {
+    gap: 8px;
+  }
+  .gap-12px {
+    gap: 12px;
+  }
+  .gap-20px {
+    gap: 20px;
+  }
+  .gap-24px {
+    gap: 24px;
+  }
+  .gap-32px {
+    gap: 32px;
+  }
+  .gap-40px {
+    gap: 40px;
+  }
+  .gap-48px {
+    gap: 48px;
+  }
+  .gap-56px {
+    gap: 56px;
+  }
+  .gap-64px {
+    gap: 64px;
+  }
+  .gap-80px {
+    gap: 80px;
+  }
+
+  .p-2px {
+    padding: 2px;
+  }
+  .p-4px {
+    padding: 4px;
+  }
+  .p-8px {
+    padding: 8px;
+  }
+  .p-12px {
+    padding: 12px;
+  }
+  .p-20px {
+    padding: 20px;
+  }
+  .p-24px {
+    padding: 24px;
+  }
+  .p-32px {
+    padding: 32px;
+  }
+  .p-40px {
+    padding: 40px;
+  }
+  .p-48px {
+    padding: 48px;
+  }
+  .p-56px {
+    padding: 56px;
+  }
+  .p-64px {
+    padding: 64px;
+  }
+  .p-80px {
+    padding: 80px;
+  }
+
+  .m-2px {
+    margin: 2px;
+  }
+  .m-4px {
+    margin: 4px;
+  }
+  .m-8px {
+    margin: 8px;
+  }
+  .m-12px {
+    margin: 12px;
+  }
+  .m-20px {
+    margin: 20px;
+  }
+  .m-24px {
+    margin: 24px;
+  }
+  .m-32px {
+    margin: 32px;
+  }
+  .m-40px {
+    margin: 40px;
+  }
+  .m-48px {
+    margin: 48px;
+  }
+  .m-56px {
+    margin: 56px;
+  }
+  .m-64px {
+    margin: 64px;
+  }
+  .m-80px {
+    margin: 80px;
+  }
 }

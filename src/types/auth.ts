@@ -153,3 +153,183 @@ export interface OTPState {
   isVerifying: boolean;
   error?: string;
 }
+
+// ===========================
+// Role-Based Auth Types (CureWay)
+// ===========================
+
+/**
+ * User roles in the CureWay platform
+ */
+export type UserRole = "patient" | "pharmacy" | "admin";
+
+/**
+ * Extended user with role information
+ */
+export interface CureWayUser extends User {
+  firstName: string;
+  lastName: string;
+  role: UserRole;
+  isVerified: boolean;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+  // Role-specific fields
+  pharmacyId?: string;
+  pharmacyName?: string;
+}
+
+/**
+ * Auth state for client-side state management
+ */
+export interface AuthState {
+  isAuthenticated: boolean;
+  user: CureWayUser | null;
+  isLoading: boolean;
+  error?: string;
+}
+
+/**
+ * Sign up data - Step 1 (Role Selection)
+ */
+export interface SignUpRoleSelection {
+  role: UserRole;
+}
+
+/**
+ * Sign up data - Step 2 (Account Details)
+ */
+export interface SignUpAccountDetails {
+  email: string;
+  password: string;
+  confirmPassword: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+}
+
+/**
+ * Sign up data - Step 3 (Pharmacy Details - for pharmacy role)
+ */
+export interface SignUpPharmacyDetails {
+  pharmacyName: string;
+  pharmacyLicense: string;
+  pharmacyAddress: string;
+  pharmacyPhone: string;
+}
+
+/**
+ * Complete sign up form data
+ */
+export interface SignUpFormData {
+  role: UserRole;
+  account: SignUpAccountDetails;
+  pharmacy?: SignUpPharmacyDetails;
+}
+
+/**
+ * Phone verification request
+ */
+export interface PhoneVerificationRequest {
+  phone: string;
+}
+
+/**
+ * OTP verification request
+ */
+export interface OtpVerificationRequest {
+  phone: string;
+  otp: string;
+}
+
+// ===========================
+// Pharmacy Sign-Up Multi-Step Types
+// ===========================
+
+/**
+ * Pharmacy sign-up step identifiers
+ */
+export type PharmacySignUpStep = "pharmacy-info" | "license" | "account";
+
+/**
+ * Pharmacy Information (Step 1)
+ */
+export const pharmacyInfoSchema = z.object({
+  pharmacyName: z
+    .string()
+    .min(1, "Pharmacy name is required")
+    .min(2, "Pharmacy name must be at least 2 characters"),
+  pharmacyNumber: z
+    .string()
+    .min(1, "Pharmacy number is required")
+    .regex(/^\+?[\d\s-]{7,}$/, "Please enter a valid phone number"),
+  pharmacyAddress: z
+    .string()
+    .min(1, "Pharmacy address is required")
+    .min(5, "Please enter a complete address"),
+  pharmacyCity: z.string().min(1, "City is required"),
+});
+
+/**
+ * Pharmacy License (Step 2)
+ */
+export const pharmacyLicenseSchema = z.object({
+  licenseNumber: z
+    .string()
+    .min(1, "License number is required")
+    .min(4, "License number must be at least 4 characters"),
+  licenseExpiry: z.string().min(1, "License expiry date is required"),
+  licenseDocument: z.string().optional(), // File path or URL
+});
+
+/**
+ * Pharmacy Account (Step 3)
+ */
+export const pharmacyAccountSchema = z
+  .object({
+    ownerName: z
+      .string()
+      .min(1, "Owner name is required")
+      .min(2, "Name must be at least 2 characters"),
+    email: z
+      .string()
+      .min(1, "Email is required")
+      .email("Please enter a valid email"),
+    password: z
+      .string()
+      .min(1, "Password is required")
+      .min(8, "Password must be at least 8 characters")
+      .regex(/[A-Z]/, "Must contain uppercase letter")
+      .regex(/[0-9]/, "Must contain a number")
+      .regex(/[!@#$%^&*(),.?":{}|<>]/, "Must contain special character"),
+    confirmPassword: z.string().min(1, "Please confirm your password"),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
+
+// Combined pharmacy sign-up schema
+export const pharmacySignUpSchema = z.object({
+  pharmacyInfo: pharmacyInfoSchema,
+  license: pharmacyLicenseSchema,
+  account: pharmacyAccountSchema,
+});
+
+// Type exports for pharmacy sign-up
+export type PharmacyInfoFormData = z.infer<typeof pharmacyInfoSchema>;
+export type PharmacyLicenseFormData = z.infer<typeof pharmacyLicenseSchema>;
+export type PharmacyAccountFormData = z.infer<typeof pharmacyAccountSchema>;
+export type PharmacySignUpFormData = z.infer<typeof pharmacySignUpSchema>;
+
+/**
+ * Pharmacy sign-up state for multi-step form
+ */
+export interface PharmacySignUpState {
+  currentStep: PharmacySignUpStep;
+  pharmacyInfo: Partial<PharmacyInfoFormData>;
+  license: Partial<PharmacyLicenseFormData>;
+  account: Partial<PharmacyAccountFormData>;
+  isSubmitting: boolean;
+  error?: string;
+}

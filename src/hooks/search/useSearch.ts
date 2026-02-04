@@ -1,4 +1,4 @@
-import { searchDummy } from "@/services/searchServices";
+import { searchDummy } from "@/services/searchService";
 import { SearchFilter, SearchResult } from "@/types/search";
 import { useEffect, useState } from "react";
 

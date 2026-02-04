@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef } from "react";
-import { OTPInputRef } from "@/components/ui/OTPInput";
+import { OTPInputRef } from "@/components/shared/OTPInput";
 
 export interface UseOTPInputOptions {
   length: 4 | 6;

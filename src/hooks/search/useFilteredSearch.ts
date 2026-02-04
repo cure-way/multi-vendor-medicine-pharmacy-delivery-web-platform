@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { SearchFilter, SearchResult } from "@/types/search";
-import { DEFAULT_FILTERS } from "@/utils/constants";
+import { DEFAULT_FILTERS } from "@/lib/constants";
 
 export function useFilteredSearch(
   medicineResults: SearchResult[],
@@ -68,7 +68,6 @@ export function useFilteredSearch(
   return {
     filtersOpen,
     activeFilters,
-    appliedFilters,
     filteredMedicines,
     openFilters,
     applyFilters,

@@ -1,5 +1,14 @@
-import ConditionalHeader from "./ConditionalHeader";
+import type { Metadata } from "next";
 import "../styles/global.css";
+
+export const metadata: Metadata = {
+  title: {
+    default: "CureWay",
+    template: "%s | CureWay",
+  },
+  description: "Multi-vendor medicine and pharmacy delivery platform",
+  keywords: ["pharmacy", "medicine", "delivery", "healthcare"],
+};
 
 export default function RootLayout({
   children,
@@ -8,10 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <ConditionalHeader />
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
