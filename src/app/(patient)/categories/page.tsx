@@ -1,32 +1,39 @@
 /**
  * Categories Page
  * Browse medicine categories (public, no auth required)
+ * Server Component - data fetched at request time
  */
-export default function CategoriesPage() {
+import {
+  FeaturedCategories,
+  AllCategories,
+  getFeaturedCategories,
+  getAllCategories,
+} from "@/components/features/category";
+
+export default async function CategoriesPage() {
+  const [featuredCategories, allCategories] = await Promise.all([
+    getFeaturedCategories(),
+    getAllCategories(),
+  ]);
+
   return (
     <div className="container mx-auto px-4 py-6">
-      <h1 className="text-2xl font-bold mb-4">Categories</h1>
-      <p className="text-gray-600 mb-6">Browse medicines by category</p>
+      <h1 className="text-t-30 font-bold text-neutral-darker mb-4">
+        Categories
+      </h1>
+      <p className="text-neutral mb-6">Browse medicines by category</p>
 
-      {/* TODO: Implement category grid */}
-      <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {[
-          "Pain Relief",
-          "Antibiotics",
-          "Vitamins",
-          "Cold & Flu",
-          "Skin Care",
-          "First Aid",
-        ].map((category) => (
-          <div
-            key={category}
-            className="p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer"
-          >
-            <div className="w-12 h-12 bg-gray-100 rounded-lg mb-3" />
-            <h3 className="font-medium text-sm">{category}</h3>
-          </div>
-        ))}
-      </div>
+      {featuredCategories.length > 0 && (
+        <FeaturedCategories categories={featuredCategories} />
+      )}
+
+      {allCategories.length > 0 ? (
+        <AllCategories categories={allCategories} />
+      ) : (
+        <p className="text-neutral text-center py-8">
+          No categories available at the moment.
+        </p>
+      )}
     </div>
   );
 }
