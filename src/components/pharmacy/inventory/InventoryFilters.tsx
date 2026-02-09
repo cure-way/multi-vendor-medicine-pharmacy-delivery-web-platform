@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Search, Plus } from "lucide-react";
 import StatusDropdown from "../shared/StatusDropdown";
-import { STATUSES } from "../utils/constants";
+import { INVENTORY_STATUSES } from "../utils/constants";
 
 export default function InventoryFilters() {
   const [status, setStatus] = useState("All Status");
@@ -21,7 +21,7 @@ export default function InventoryFilters() {
 
       <div className="flex items-center gap-2">
         <StatusDropdown
-          options={STATUSES}
+          options={INVENTORY_STATUSES}
           value={status}
           onChange={setStatus}
         />
