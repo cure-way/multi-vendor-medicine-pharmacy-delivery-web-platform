@@ -4,25 +4,29 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FiAlertCircle } from "react-icons/fi";
 import { FaCapsules } from "react-icons/fa";
+import { inventoryData, ORDERS } from "../utils/data";
+import {
+  getMostRequestedCategory,
+  getTopSellingMedicine,
+} from "../utils/services";
 
-const SUMMARY_ITEMS = [
+const topSellingMedicine = getTopSellingMedicine(ORDERS);
+
+const mostRequestedCategory = getMostRequestedCategory(ORDERS, inventoryData);
+const alertStockItems = inventoryData
+  .filter((item) => item.status === "low" || item.status === "out")
+  .slice(0, 2);
+
+const todaySummaryItems = [
   {
-    id: "paracetamol",
-    label: "Top Selling medicine",
-    value: "Paracetamol",
+    id: "top-medicine",
+    title: "Top Selling Medicine",
+    value: topSellingMedicine ?? "—",
   },
   {
-    id: "vitamins",
-    label: "Most requested category",
-    value: "Vitamins",
-  },
-];
-
-const ALERT_STOCK_ITEMS = [
-  {
-    id: "desamol-500",
-    name: "Desamol 500mg",
-    remaining: "Only 3 item left",
+    id: "top-category",
+    title: "Most Requested Category",
+    value: mostRequestedCategory ?? "—",
   },
 ];
 
@@ -73,7 +77,7 @@ export default function QuickActionCard() {
         </div>
 
         <div className="space-y-3">
-          {ALERT_STOCK_ITEMS.map((item) => (
+          {alertStockItems.map((item) => (
             <div
               key={item.id}
               onClick={() => router.push(`/pharmacy/inventory/${item.id}`)}
@@ -84,8 +88,10 @@ export default function QuickActionCard() {
               </div>
 
               <div className="flex-1">
-                <p className="font-medium text-gray-900 text-sm">{item.name}</p>
-                <p className="text-gray-500 text-xs">{item.remaining}</p>
+                <p className="font-medium text-gray-900 text-sm">
+                  {item.medicine}
+                </p>
+                <p className="text-gray-500 text-xs">{item.stock}</p>
               </div>
             </div>
           ))}
@@ -100,23 +106,23 @@ export default function QuickActionCard() {
       </div>
 
       <div>
-        <h3 className="mb-2 font-semibold text-gray-900 text-sm">
+        <h3 className="mb-3 font-semibold text-gray-900 text-sm">
           Today Summary
         </h3>
 
-        <div className="space-y-2">
-          {SUMMARY_ITEMS.map((item) => (
+        <div className="space-y-3">
+          {todaySummaryItems.map((item) => (
             <div
               key={item.id}
-              onClick={() => router.push(`/pharmacy/inventory/${item.id}`)}
-              className="flex items-center gap-2 hover:bg-gray-50 px-3 py-2 border rounded-lg transition cursor-pointer"
+              className="flex items-start gap-2 p-3 border rounded-xl"
             >
-              <span className="bg-green-500 rounded-full w-2 h-2" />
+              <span className="text-green-600">✔</span>
+
               <div>
-                <p className="text-gray-500 text-xs">{item.label}</p>
                 <p className="font-medium text-gray-900 text-sm">
-                  {item.value}
+                  {item.title}
                 </p>
+                <p className="text-gray-500 text-xs">{item.value}</p>
               </div>
             </div>
           ))}
