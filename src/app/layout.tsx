@@ -17,7 +17,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="h-screen overflow-hidden">
+        {children}
+        <div id="dropdown-portal" />
+      </body>
     </html>
   );
 }
