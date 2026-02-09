@@ -1,12 +1,22 @@
 export type InventoryStatus = "in" | "low" | "out";
 
+export type InventoryCategory =
+  | "pain_relief"
+  | "antibiotics"
+  | "vitamins"
+  | "digestive"
+  | "diabetes"
+  | "eye_care"
+  | "cough_cold";
+
 export interface InventoryRow {
   id: string;
   medicine: string;
   brand: string;
   stock: string;
   expiration: string;
-  status: InventoryStatus;
+  status: "in" | "low" | "out";
+  category: InventoryCategory;
 }
 
 export interface Column<T> {
@@ -28,4 +38,14 @@ export interface ActionItem<TActionId extends string> {
   label: string;
   danger?: boolean;
   disabled?: boolean;
+}
+
+export interface OrderRow {
+  id: string;
+  inventoryId: string;
+  customer: string;
+  medicine: string;
+  total: string;
+  date: string;
+  status: "Delivered" | "Pending" | "Cancelled";
 }

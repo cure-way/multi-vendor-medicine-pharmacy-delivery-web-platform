@@ -1,4 +1,4 @@
-import { InventoryRow } from "../inventory/InventoryTable";
+import { InventoryRow, OrderRow } from "./types";
 
 export const inventoryData: InventoryRow[] = [
   {
@@ -8,6 +8,7 @@ export const inventoryData: InventoryRow[] = [
     stock: "30 pacs",
     expiration: "12 months",
     status: "in",
+    category: "pain_relief",
   },
   {
     id: "P0002",
@@ -16,6 +17,7 @@ export const inventoryData: InventoryRow[] = [
     stock: "12 pacs",
     expiration: "8 months",
     status: "low",
+    category: "pain_relief",
   },
   {
     id: "P0003",
@@ -24,6 +26,7 @@ export const inventoryData: InventoryRow[] = [
     stock: "0 pacs",
     expiration: "—",
     status: "out",
+    category: "antibiotics",
   },
   {
     id: "P0004",
@@ -32,6 +35,7 @@ export const inventoryData: InventoryRow[] = [
     stock: "20 pacs",
     expiration: "14 months",
     status: "in",
+    category: "pain_relief",
   },
   {
     id: "P0005",
@@ -40,6 +44,7 @@ export const inventoryData: InventoryRow[] = [
     stock: "7 pacs",
     expiration: "6 months",
     status: "low",
+    category: "vitamins",
   },
   {
     id: "P0006",
@@ -48,6 +53,7 @@ export const inventoryData: InventoryRow[] = [
     stock: "0 pacs",
     expiration: "—",
     status: "out",
+    category: "cough_cold",
   },
   {
     id: "P0007",
@@ -56,6 +62,7 @@ export const inventoryData: InventoryRow[] = [
     stock: "40 pacs",
     expiration: "18 months",
     status: "in",
+    category: "pain_relief",
   },
   {
     id: "P0008",
@@ -64,6 +71,7 @@ export const inventoryData: InventoryRow[] = [
     stock: "9 pacs",
     expiration: "5 months",
     status: "low",
+    category: "digestive",
   },
   {
     id: "P0009",
@@ -72,6 +80,7 @@ export const inventoryData: InventoryRow[] = [
     stock: "3 pacs",
     expiration: "2 months",
     status: "low",
+    category: "diabetes",
   },
   {
     id: "P0010",
@@ -80,5 +89,27 @@ export const inventoryData: InventoryRow[] = [
     stock: "15 pacs",
     expiration: "10 months",
     status: "in",
+    category: "eye_care",
+  },
+];
+
+export const ORDERS: OrderRow[] = [
+  {
+    id: "O0001",
+    inventoryId: "P0007",
+    customer: "Eman Mohammad",
+    medicine: "Paracetamol 500mg",
+    total: "23.00$",
+    date: "24 June",
+    status: "Delivered",
+  },
+  {
+    id: "O0002",
+    inventoryId: "P0007",
+    customer: "Eman Mohammad",
+    medicine: "Paracetamol 500mg",
+    total: "23.00$",
+    date: "24 June",
+    status: "Delivered",
   },
 ];
