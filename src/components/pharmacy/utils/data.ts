@@ -1,113 +1,102 @@
-import { InventoryRow, OrderRow } from "./types";
+import { InventoryItem, OrderRow } from "./types";
 
-export const inventoryData: InventoryRow[] = [
+export const inventoryData: InventoryItem[] = [
   {
     id: "P0001",
-    medicine: "Panadol",
+    medicineName: "Paracetamol",
     brand: "GSK",
-    stock: "30 pacs",
-    expiration: "12 months",
-    status: "in",
+    manufacturer: "GlaxoSmithKline",
     category: "pain_relief",
+
+    stock: 30,
+    minStock: 10,
+    status: "in",
+
+    batchNumber: "PAC-2024-01",
+    expiryDate: "2026-02-08",
+    prescriptionRequired: false,
+
+    purchasePrice: 1.5,
+    sellingPrice: 2.0,
+
+    imageUrl: "/panadol.png",
+    usageNotes: [
+      "One tablet every 4–6 hours",
+      "Do not exceed 4 tablets in 24 hours",
+      "Store at room temperature",
+      "Away from moisture and heat",
+      "Keep container tightly closed",
+      "Keep out of reach of children",
+    ],
+  },
+
+  {
+    id: "P0003",
+    medicineName: "Aspirin",
+    brand: "Bayer",
+    manufacturer: "Bayer",
+    category: "pain_relief",
+
+    stock: 12,
+    minStock: 10,
+    status: "low",
+
+    batchNumber: "ASP-2024-02",
+    expiryDate: "2027-12-15",
+    prescriptionRequired: false,
+
+    purchasePrice: 1.2,
+    sellingPrice: 1.8,
+
+    imageUrl: "/aspirin.png",
+    usageNotes: [
+      "Take with food to avoid stomach upset",
+      "Do not exceed recommended dose",
+      "Store in a cool, dry place",
+    ],
   },
   {
     id: "P0002",
-    medicine: "Aspirin",
+    medicineName: "Panadol 500mg",
     brand: "Bayer",
-    stock: "12 pacs",
-    expiration: "8 months",
-    status: "low",
+    manufacturer: "Bayer",
     category: "pain_relief",
-  },
-  {
-    id: "P0003",
-    medicine: "Amoxicillin",
-    brand: "Pfizer",
-    stock: "0 pacs",
-    expiration: "—",
-    status: "out",
-    category: "antibiotics",
-  },
-  {
-    id: "P0004",
-    medicine: "Ibuprofen",
-    brand: "Abbott",
-    stock: "20 pacs",
-    expiration: "14 months",
-    status: "in",
-    category: "pain_relief",
-  },
-  {
-    id: "P0005",
-    medicine: "Vitamin C",
-    brand: "Nature Made",
-    stock: "7 pacs",
-    expiration: "6 months",
+
+    stock: 12,
+    minStock: 10,
     status: "low",
-    category: "vitamins",
-  },
-  {
-    id: "P0006",
-    medicine: "Cough Syrup",
-    brand: "Vicks",
-    stock: "0 pacs",
-    expiration: "—",
-    status: "out",
-    category: "cough_cold",
-  },
-  {
-    id: "P0007",
-    medicine: "Paracetamol",
-    brand: "Sanofi",
-    stock: "40 pacs",
-    expiration: "18 months",
-    status: "in",
-    category: "pain_relief",
-  },
-  {
-    id: "P0008",
-    medicine: "Antacid",
-    brand: "Gaviscon",
-    stock: "9 pacs",
-    expiration: "5 months",
-    status: "low",
-    category: "digestive",
-  },
-  {
-    id: "P0009",
-    medicine: "Insulin",
-    brand: "Novo Nordisk",
-    stock: "3 pacs",
-    expiration: "2 months",
-    status: "low",
-    category: "diabetes",
-  },
-  {
-    id: "P0010",
-    medicine: "Eye Drops",
-    brand: "Alcon",
-    stock: "15 pacs",
-    expiration: "10 months",
-    status: "in",
-    category: "eye_care",
+
+    batchNumber: "PAN-2025-06",
+    expiryDate: "2026-02-15",
+    prescriptionRequired: false,
+
+    purchasePrice: 1.2,
+    sellingPrice: 1.8,
+
+    imageUrl: "/aspirin.png",
+    usageNotes: [
+      "Take with food to avoid stomach upset",
+      "Do not exceed recommended dose",
+      "Store in a cool, dry place",
+    ],
   },
 ];
 
 export const ORDERS: OrderRow[] = [
   {
     id: "O0001",
-    inventoryId: "P0007",
+    inventoryId: "P0001",
     customer: "Eman Mohammad",
-    medicine: "Paracetamol 500mg",
+    medicine: "Panadol 500mg",
     total: "23.00$",
     date: "24 June",
     status: "Delivered",
   },
   {
     id: "O0002",
-    inventoryId: "P0007",
+    inventoryId: "P0001",
     customer: "Eman Mohammad",
-    medicine: "Paracetamol 500mg",
+    medicine: "Panadol 500mg",
     total: "23.00$",
     date: "24 June",
     status: "Delivered",

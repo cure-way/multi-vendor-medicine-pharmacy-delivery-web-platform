@@ -27,8 +27,8 @@ export default function InventorySnapshot() {
           <InventoryItemCard
             key={item.id}
             id={item.id}
-            title={item.medicine}
-            extra={item.stock}
+            title={item.medicineName}
+            extra={item.batchNumber}
           />
         ))}
       </div>

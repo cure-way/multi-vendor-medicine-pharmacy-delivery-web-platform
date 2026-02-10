@@ -1,4 +1,4 @@
-import { Column, InventoryRow, OrderRow, RowAction } from "./types";
+import { Column, InventoryItem, OrderRow, RowAction } from "./types";
 
 export const INVENTORY_STATUSES = [
   "All Status",
@@ -9,12 +9,12 @@ export const INVENTORY_STATUSES = [
 
 export const ORDER_STATUSES = ["All", "New", "Past", "Delivered"];
 
-export const columns: readonly Column<InventoryRow>[] = [
-  { key: "id", header: "ID", hideOnMobile: true },
-  { key: "medicine", header: "Medicine" },
-  { key: "brand", header: "Brand", hideOnMobile: true },
+export const inventoryColumns: Column<InventoryItem>[] = [
+  { key: "id", header: "ID" },
+  { key: "medicineName", header: "Medicine" },
+  { key: "brand", header: "Brand" },
   { key: "stock", header: "Stock" },
-  { key: "expiration", header: "Expiration", hideOnMobile: true },
+  { key: "expiryDate", header: "Expiration" },
   { key: "status", header: "Status" },
   { key: "action", header: "" },
 ];

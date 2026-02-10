@@ -3,13 +3,13 @@
 import DataTable from "../shared/DataTable";
 import { useRouter } from "next/navigation";
 import ActionsDropdown from "../shared/ActionsDropdown";
-import { ActionId, InventoryRow } from "../utils/types";
-import { columns, INVENTORY_ACTIONS } from "../utils/constants";
+import { ActionId, InventoryItem } from "../utils/types";
+import { INVENTORY_ACTIONS, inventoryColumns } from "../utils/constants";
 
-export default function InventoryTable({ data }: { data: InventoryRow[] }) {
+export default function InventoryTable({ data }: { data: InventoryItem[] }) {
   const router = useRouter();
 
-  function handleAction(action: ActionId, row: InventoryRow) {
+  function handleAction(action: ActionId, row: InventoryItem) {
     switch (action) {
       case "view":
         router.push(`/pharmacy/inventory/${row.id}`);
@@ -32,7 +32,7 @@ export default function InventoryTable({ data }: { data: InventoryRow[] }) {
   return (
     <DataTable
       data={data}
-      columns={columns}
+      columns={inventoryColumns}
       renderCell={(row, col) => {
         if (col.key === "action") {
           return (

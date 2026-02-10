@@ -39,7 +39,7 @@ export default function QuickActionCard() {
       <h2 className="mb-4 font-semibold text-gray-900 text-sm">Quick Action</h2>
 
       <div
-        className={`mb-4 rounded-lg p-3 transition ${
+        className={`mb-6 rounded-lg p-3 transition ${
           acceptingOrders ? "bg-green-50" : "bg-gray-100"
         }`}
       >
@@ -70,40 +70,42 @@ export default function QuickActionCard() {
         </div>
       </div>
 
-      <div className="mb-4 p-3 border border-t-4 border-t-yellow-300 rounded-lg">
-        <div className="flex items-center gap-2 mb-3 font-medium text-yellow-700 text-sm">
-          <FiAlertCircle className="text-base" />
-          Alert Stock
-        </div>
+      {alertStockItems.length > 0 && (
+        <div className="mb-6 p-3 border border-t-4 border-t-yellow-300 rounded-lg">
+          <div className="flex items-center gap-2 mb-3 font-medium text-yellow-700 text-sm">
+            <FiAlertCircle className="text-base" />
+            Alert Stock
+          </div>
 
-        <div className="space-y-3">
-          {alertStockItems.map((item) => (
-            <div
-              key={item.id}
-              onClick={() => router.push(`/pharmacy/inventory/${item.id}`)}
-              className="flex items-center gap-3 hover:bg-gray-50 rounded-lg transition cursor-pointer"
-            >
-              <div className="flex justify-center items-center bg-white shadow-sm rounded-lg w-12 h-12">
-                <FaCapsules className="text-yellow-600 text-2xl" />
+          <div className="space-y-3">
+            {alertStockItems.map((item) => (
+              <div
+                key={item.id}
+                onClick={() => router.push(`/pharmacy/inventory/${item.id}`)}
+                className="flex items-center gap-3 hover:bg-gray-50 rounded-lg transition cursor-pointer"
+              >
+                <div className="flex justify-center items-center bg-white shadow-sm rounded-lg w-12 h-12">
+                  <FaCapsules className="text-yellow-600 text-2xl" />
+                </div>
+
+                <div className="flex-1">
+                  <p className="font-medium text-gray-900 text-sm">
+                    {item.medicineName}
+                  </p>
+                  <p className="text-gray-500 text-xs">{item.stock}</p>
+                </div>
               </div>
+            ))}
+          </div>
 
-              <div className="flex-1">
-                <p className="font-medium text-gray-900 text-sm">
-                  {item.medicine}
-                </p>
-                <p className="text-gray-500 text-xs">{item.stock}</p>
-              </div>
-            </div>
-          ))}
+          <button
+            onClick={() => router.push("/pharmacy/inventory")}
+            className="bg-(--color-primary) mt-3 py-2 rounded-lg w-full font-medium text-white text-sm"
+          >
+            Update Stock
+          </button>
         </div>
-
-        <button
-          onClick={() => router.push("/pharmacy/inventory")}
-          className="bg-(--color-primary) mt-3 py-2 rounded-lg w-full font-medium text-white text-sm"
-        >
-          Update Stock
-        </button>
-      </div>
+      )}
 
       <div>
         <h3 className="mb-3 font-semibold text-gray-900 text-sm">

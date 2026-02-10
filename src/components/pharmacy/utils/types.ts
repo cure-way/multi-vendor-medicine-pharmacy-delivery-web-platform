@@ -9,14 +9,28 @@ export type InventoryCategory =
   | "eye_care"
   | "cough_cold";
 
-export interface InventoryRow {
+export interface InventoryItem {
   id: string;
-  medicine: string;
+
+  medicineName: string;
   brand: string;
-  stock: string;
-  expiration: string;
+  manufacturer: string;
+  category: string;
+
+  stock: number;
+  minStock: number;
   status: "in" | "low" | "out";
-  category: InventoryCategory;
+
+  batchNumber: string;
+  expiryDate: string;
+  prescriptionRequired: boolean;
+
+  purchasePrice: number;
+  sellingPrice: number;
+
+  /** NEW */
+  imageUrl?: string;
+  usageNotes?: string[];
 }
 
 export interface Column<T> {
@@ -48,4 +62,23 @@ export interface OrderRow {
   total: string;
   date: string;
   status: "Delivered" | "Pending" | "Cancelled";
+}
+
+export interface UsageNote {
+  value: string;
+}
+export interface EditMedicinePayload {
+  medicineName: string;
+  category: string;
+  stock: number;
+  expiryDate: string;
+  usageNotes: string[];
+  imageFile?: File | null;
+}
+export interface EditMedicineFormValues {
+  medicineName: string;
+  category: string;
+  stock: number;
+  expiryDate: string;
+  usageNotes: { value: string }[];
 }
