@@ -1,7 +1,11 @@
-export default function AdminPatientsPage() {
-  return (
-    <main className="p-6">
-      <h1 className="text-2xl font-semibold">Admin Patients</h1>
-    </main>
-  );
+import type { Metadata } from "next";
+import AdminPatientsPage from "./page.client";
+
+export const metadata: Metadata = {
+  title: "Patients",
+  description: "View and manage registered patients",
+};
+
+export default function Page() {
+  return <AdminPatientsPage />;
 }

@@ -1,0 +1,11 @@
+import type { Metadata } from "next";
+import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "Dashboard",
+  description: "Admin dashboard overview for CureWay platform",
+};
+
+export default function AdminPage() {
+  redirect("/admin/dashboard");
+}
