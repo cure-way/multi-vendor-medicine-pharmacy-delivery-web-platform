@@ -1,46 +1,61 @@
-import { requirePatient } from "@/lib/auth";
+"use client";
 
-/**
- * Orders Page (Protected)
- * View patient's order history
- */
-export default async function OrdersPage() {
-  // Require patient authentication - redirects to sign-in if not logged in
-  const session = await requirePatient();
+import { useMemo, useState } from "react";
+import { OrdersHeader } from "@/components/patient/orders/OrdersHeader";
+import { OrdersTabs, type OrdersTabKey } from "@/components/patient/orders/OrdersTabs";
+import { OrdersList } from "@/components/patient/orders/OrdersList";
+import { mockOrders } from "@/services/orders.mock";
+import type { Order } from "@/types/order";
+
+function filterByTab(tab: OrdersTabKey, orders: Order[]) {
+  if (tab === "all") return orders;
+  if (tab === "active")
+    return orders.filter((o) => o.status === "processing" || o.status === "on_the_way");
+  if (tab === "delivered") return orders.filter((o) => o.status === "delivered");
+  if (tab === "cancelled") return orders.filter((o) => o.status === "cancelled");
+  return orders;
+}
+
+export default function OrdersPage() {
+  const [activeTab, setActiveTab] = useState<OrdersTabKey>("all");
+
+  const counts = useMemo(() => {
+    const all = mockOrders.length;
+    const active = mockOrders.filter(
+      (o) => o.status === "processing" || o.status === "on_the_way"
+    ).length;
+    const delivered = mockOrders.filter((o) => o.status === "delivered").length;
+    const cancelled = mockOrders.filter((o) => o.status === "cancelled").length;
+    return { all, active, delivered, cancelled };
+  }, []);
+
+  const tabs = useMemo(
+    () => [
+      { key: "all" as const, label: "All", count: counts.all },
+      { key: "active" as const, label: "Active", count: counts.active },
+      { key: "delivered" as const, label: "Delivered", count: counts.delivered },
+      { key: "cancelled" as const, label: "Cancelled", count: counts.cancelled },
+    ],
+    [counts]
+  );
+
+  const filtered = useMemo(() => filterByTab(activeTab, mockOrders), [activeTab]);
 
   return (
-    <div className="container mx-auto px-4 py-6">
-      <h1 className="text-2xl font-bold mb-4">My Orders</h1>
-      <p className="text-gray-600 mb-6">
-        Welcome back, {session.user.name || "Patient"}!
-      </p>
+    <div className="w-full">
+      <div className="mx-auto w-full max-w-[1400px] px-6 pt-10 pb-6">
+        {/* Header row */}
+        <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <OrdersHeader title="My Order" subtitle="Track and manage your orders" />
 
-      {/* TODO: Fetch and display orders */}
-      <div className="space-y-4">
-        <div className="bg-white rounded-lg shadow-sm p-4">
-          <div className="flex justify-between items-start mb-3">
-            <div>
-              <p className="font-medium">Order #12345</p>
-              <p className="text-gray-500 text-sm">Jan 15, 2026</p>
-            </div>
-            <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">
-              Delivered
-            </span>
+          <div className="w-full md:w-[560px]">
+            <OrdersTabs activeTab={activeTab} tabs={tabs} onChange={setActiveTab} />
           </div>
-          <p className="text-sm text-gray-600">3 items · $29.99</p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-sm p-4">
-          <div className="flex justify-between items-start mb-3">
-            <div>
-              <p className="font-medium">Order #12344</p>
-              <p className="text-gray-500 text-sm">Jan 10, 2026</p>
-            </div>
-            <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">
-              In Transit
-            </span>
-          </div>
-          <p className="text-sm text-gray-600">2 items · $19.99</p>
+        {/* List (Scroll) */}
+        <div className="mt-6 max-h-[1166px] overflow-y-auto pb-10">
+          <OrdersList orders={filtered} />
         </div>
       </div>
     </div>
