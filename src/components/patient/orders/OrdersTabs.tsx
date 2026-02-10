@@ -36,7 +36,7 @@ export function OrdersTabs({ activeTab, tabs, onChange }: Props) {
             onClick={() => onChange(t.key)}
             className={cx(
               "h-16 rounded-lg px-4",
-              "whitespace-nowrap", // يمنع نزول الرقم لسطر ثاني
+              "whitespace-nowrap",
               "text-[18px] font-semibold leading-[120%]",
               "transition-all duration-300 ease-in-out",
               selected
@@ -46,7 +46,7 @@ export function OrdersTabs({ activeTab, tabs, onChange }: Props) {
             )}
           >
             <span className="inline-flex items-center gap-2">
-              {/* النقطة شمال All */}
+             
               {isAll && (
                 <span
                   className={cx(

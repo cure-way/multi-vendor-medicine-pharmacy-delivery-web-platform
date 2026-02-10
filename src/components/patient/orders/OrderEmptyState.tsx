@@ -9,7 +9,7 @@ export function OrderEmptyState() {
   return (
     <div className="w-full py-10 font-[var(--font-montserrat)]">
       <div className="flex flex-col items-center gap-6">
-        {/* PNG 150x150 بدون أي background */}
+        
         <Image
           src="/icons/empty-order.png"
           alt="no orders"
