@@ -1,5 +1,19 @@
 import type { Metadata } from "next";
 import "../styles/global.css";
+import { Montserrat, Inter } from "next/font/google";
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+  weight: ["400", "500", "600", "700"],
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  weight: ["400", "500", "600", "700"],
+});
+
 
 export const metadata: Metadata = {
   title: {
@@ -17,9 +31,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="h-screen overflow-hidden">
-        {children}
+      <body className={`${montserrat.variable} ${inter.variable}`}>
         <div id="dropdown-portal" />
+        {children}
       </body>
     </html>
   );
