@@ -1,18 +1,36 @@
+"use client";
+
+import AdminSidebar from "@/components/admin/AdminSidebar";
+import AdminHeader from "@/components/admin/AdminHeader";
+import { SidebarProvider } from "@/contexts/SidebarContext";
+import { PageTransition } from "@/components/admin/shared";
+
+function AdminLayoutInner({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex min-h-screen bg-neutral-light">
+      <AdminSidebar />
+
+      {/* Main Content — fills remaining width */}
+      <div className="flex flex-col flex-1 min-w-0">
+        <AdminHeader />
+        <main className="flex-1 flex flex-col">
+          <PageTransition className="flex-1 flex flex-col">
+            {children}
+          </PageTransition>
+        </main>
+      </div>
+    </div>
+  );
+}
+
 export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* AdminShell - sidebar/header for admin panel */}
-      {/* TODO: Add admin navigation, sidebar, header */}
-      <div className="flex">
-        <aside className="hidden lg:block w-64">
-          {/* Admin Sidebar placeholder */}
-        </aside>
-        <main className="flex-1">{children}</main>
-      </div>
-    </div>
+    <SidebarProvider>
+      <AdminLayoutInner>{children}</AdminLayoutInner>
+    </SidebarProvider>
   );
 }
