@@ -1,4 +1,4 @@
-import { InventoryItem } from "@/components/pharmacy/utils/types";
+import { InventoryItem } from "@/types/pharmacyTypes";
 import Image from "next/image";
 
 export default function PharmacyMedicineInfo({

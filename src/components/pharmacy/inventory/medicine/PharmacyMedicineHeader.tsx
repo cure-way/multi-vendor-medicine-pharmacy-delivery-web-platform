@@ -1,7 +1,7 @@
 "use client";
 
 import { Pencil } from "lucide-react";
-import { InventoryItem } from "@/components/pharmacy/utils/types";
+import { InventoryItem } from "@/types/pharmacyTypes";
 import EditMedicineDrawer from "./EditMedicineDrawer";
 import { useState } from "react";
 

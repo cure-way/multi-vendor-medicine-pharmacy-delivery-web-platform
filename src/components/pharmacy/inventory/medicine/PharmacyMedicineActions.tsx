@@ -1,8 +1,8 @@
 "use client";
 
 import { CheckCircle } from "lucide-react";
-import { getExpiryInfo } from "../../utils/services";
-import { InventoryItem } from "../../utils/types";
+import { getExpiryInfo } from "@/services/pharmacyService";
+import { InventoryItem } from "@/types/pharmacyTypes";
 
 export default function PharmacyMedicineActions({
   item,

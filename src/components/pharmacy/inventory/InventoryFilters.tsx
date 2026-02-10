@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Search, Plus } from "lucide-react";
 import StatusDropdown from "../shared/StatusDropdown";
-import { INVENTORY_STATUSES } from "../utils/constants";
+import { INVENTORY_STATUSES } from "@/utils/pharmacyConstants";
 
 export default function InventoryFilters() {
   const [status, setStatus] = useState("All Status");

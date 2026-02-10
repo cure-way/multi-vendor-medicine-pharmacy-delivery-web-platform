@@ -1,4 +1,4 @@
-import { InventoryItem, OrderRow } from "./types";
+import { InventoryItem, OrderRow } from "@/types/pharmacyTypes";
 
 export const inventoryData: InventoryItem[] = [
   {

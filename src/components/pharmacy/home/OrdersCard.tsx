@@ -3,7 +3,7 @@
 import { useState } from "react";
 import StatusDropdown from "../shared/StatusDropdown";
 import OrdersTable from "./OrdersTable";
-import { ORDER_STATUSES } from "../utils/constants";
+import { ORDER_STATUSES } from "@/utils/pharmacyConstants";
 
 export default function OrdersCard() {
   const [status, setStatus] = useState("All");

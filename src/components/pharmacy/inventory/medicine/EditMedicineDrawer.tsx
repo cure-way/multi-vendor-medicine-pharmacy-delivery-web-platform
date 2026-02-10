@@ -2,10 +2,7 @@
 
 import clsx from "clsx";
 import { X } from "lucide-react";
-import {
-  EditMedicinePayload,
-  InventoryItem,
-} from "@/components/pharmacy/utils/types";
+import { EditMedicinePayload, InventoryItem } from "@/types/pharmacyTypes";
 import EditMedicineForm from "./edit-form/EditMedicineForm";
 
 interface Props {

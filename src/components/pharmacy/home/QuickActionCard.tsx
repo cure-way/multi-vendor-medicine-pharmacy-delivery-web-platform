@@ -4,11 +4,11 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FiAlertCircle } from "react-icons/fi";
 import { FaCapsules } from "react-icons/fa";
-import { inventoryData, ORDERS } from "../utils/data";
+import { inventoryData, ORDERS } from "@/services/pharmacyData";
 import {
   getMostRequestedCategory,
   getTopSellingMedicine,
-} from "../utils/services";
+} from "@/services/pharmacyService";
 
 const topSellingMedicine = getTopSellingMedicine(ORDERS);
 

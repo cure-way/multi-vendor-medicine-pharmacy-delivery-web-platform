@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import InventoryItemCard from "./InventoryItemCard";
-import { inventoryData } from "../utils/data";
+import { inventoryData } from "@/services/pharmacyData";
 
 export default function InventorySnapshot() {
   const router = useRouter();

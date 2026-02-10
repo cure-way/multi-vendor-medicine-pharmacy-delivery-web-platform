@@ -1,6 +1,6 @@
 "use client";
 
-import { EditMedicineFormValues } from "@/components/pharmacy/utils/types";
+import { EditMedicineFormValues } from "@/types/pharmacyTypes";
 import { clsx } from "clsx";
 import { FieldArrayWithId, UseFormRegister } from "react-hook-form";
 

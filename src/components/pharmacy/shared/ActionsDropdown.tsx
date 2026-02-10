@@ -3,7 +3,7 @@
 import { createPortal } from "react-dom";
 import { MoreHorizontal } from "lucide-react";
 import { useActionsDropdown } from "@/hooks/useActionsDropdown";
-import { ActionItem } from "../utils/types";
+import { ActionItem } from "@/types/pharmacyTypes";
 
 interface ActionsDropdownProps<TActionId extends string> {
   actions: ActionItem<TActionId>[];

@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { inventoryData } from "@/components/pharmacy/utils/data";
+import { inventoryData } from "@/services/pharmacyData";
 
 import PharmacyMedicineHeader from "@/components/pharmacy/inventory/medicine/PharmacyMedicineHeader";
 import PharmacyMedicineInfo from "@/components/pharmacy/inventory/medicine/PharmacyMedicineInfo";

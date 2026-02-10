@@ -1,10 +1,10 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { OrderRow } from "../utils/types";
-import { orderColumns } from "../utils/constants";
+import { OrderRow } from "@/types/pharmacyTypes";
+import { orderColumns } from "@/utils/pharmacyConstants";
 import DataTable from "../shared/DataTable";
-import { ORDERS } from "../utils/data";
+import { ORDERS } from "@/services/pharmacyData";
 
 export default function OrdersTable() {
   const router = useRouter();

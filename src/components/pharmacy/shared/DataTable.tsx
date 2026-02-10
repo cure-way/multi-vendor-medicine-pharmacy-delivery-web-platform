@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ReactNode, useMemo } from "react";
 import StatusDropdown from "./StatusDropdown";
 import { usePagination } from "@/hooks/usePagination";
-import { Column } from "../utils/types";
+import { Column } from "@/types/pharmacyTypes";
 export interface DataTableProps<T extends { id: string }> {
   data: T[];
   columns: readonly Column<T>[];

@@ -1,4 +1,4 @@
-import { EditMedicineFormValues } from "@/components/pharmacy/utils/types";
+import { EditMedicineFormValues } from "@/types/pharmacyTypes";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 
 interface MedicineBasicFieldsProps {

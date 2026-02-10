@@ -3,8 +3,8 @@
 import DataTable from "../shared/DataTable";
 import { useRouter } from "next/navigation";
 import ActionsDropdown from "../shared/ActionsDropdown";
-import { ActionId, InventoryItem } from "../utils/types";
-import { INVENTORY_ACTIONS, inventoryColumns } from "../utils/constants";
+import { ActionId, InventoryItem } from "@/types/pharmacyTypes";
+import { INVENTORY_ACTIONS, inventoryColumns } from "@/utils/pharmacyConstants";
 
 export default function InventoryTable({ data }: { data: InventoryItem[] }) {
   const router = useRouter();

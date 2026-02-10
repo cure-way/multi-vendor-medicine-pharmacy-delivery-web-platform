@@ -1,4 +1,9 @@
-import { Column, InventoryItem, OrderRow, RowAction } from "./types";
+import {
+  Column,
+  InventoryItem,
+  OrderRow,
+  RowAction,
+} from "@/types/pharmacyTypes";
 
 export const INVENTORY_STATUSES = [
   "All Status",

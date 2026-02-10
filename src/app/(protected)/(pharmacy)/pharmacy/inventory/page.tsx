@@ -1,4 +1,4 @@
-import { inventoryData } from "@/components/pharmacy/utils/data";
+import { inventoryData } from "@/services/pharmacyData";
 import AlertBanner from "@/components/pharmacy/inventory/AlertBanner";
 import InventoryFilters from "@/components/pharmacy/inventory/InventoryFilters";
 import InventoryTable from "@/components/pharmacy/inventory/InventoryTable";

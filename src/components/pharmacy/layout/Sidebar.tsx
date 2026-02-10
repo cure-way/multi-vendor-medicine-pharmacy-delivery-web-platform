@@ -45,7 +45,13 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
       >
         {/* Logo */}
         <div className="flex items-center gap-2 mb-10">
-          <Image src="/logo.png" alt="CureWay Logo" width={32} height={32} />
+          <Image
+            src="/logo.png"
+            alt="CureWay Logo"
+            width={32}
+            height={32}
+            className="w-8 h-8"
+          />
           <div>
             <h1 className="font-semibold text-(--color-primary) text-2xl">
               CureWay

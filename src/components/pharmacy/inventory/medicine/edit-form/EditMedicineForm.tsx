@@ -7,7 +7,7 @@ import {
   InventoryItem,
   EditMedicinePayload,
   EditMedicineFormValues,
-} from "@/components/pharmacy/utils/types";
+} from "@/types/pharmacyTypes";
 import MedicineImageField from "./MedicineImageField";
 import MedicineBasicFields from "./MedicineBasicFields";
 import MedicineUsageNotes from "./MedicineUsageNotes";
