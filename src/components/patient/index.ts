@@ -5,11 +5,16 @@
 
 export { PatientHeader } from "./header";
 export {
-  HeaderTopbar,
   HeaderSearch,
   HeaderActions,
   HeaderQuickChips,
+  HomeHeader,
+  AnnouncementsBar,
+  HomeTopbar,
+  HomeQuickChips,
 } from "./header";
+export { PageHeader } from "./PageHeader";
+export { HelpAccordion } from "./HelpAccordion";
 // - PrescriptionUploader
 // - PharmacyCard
 // - etc.
