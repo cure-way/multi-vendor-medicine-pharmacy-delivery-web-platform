@@ -39,3 +39,13 @@ export const orderColumns: readonly Column<OrderRow>[] = [
   { key: "date", header: "Date", hideOnMobile: true },
   { key: "status", header: "Status" },
 ];
+
+export const DAY_ORDER = [
+  "Sun",
+  "Mon",
+  "Tue",
+  "Wed",
+  "Thu",
+  "Fri",
+  "Sat",
+] as const;
