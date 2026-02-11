@@ -1,70 +1,46 @@
 /**
  * Patient Home Page
  * The main landing page for patients (and guests)
- * Server Component - data fetched at request time
+ * Server Component — renders all home sections from mock data.
  */
 import {
-  FeaturedCategories,
-  MostSales,
-  RecommendedProducts,
-  getFeaturedCategories,
-  getMostSalesProducts,
-  getRecommendedProducts,
-} from "@/components/features/category";
+  HomePromoBanner,
+  HomeHero,
+  HomeUploadPrescription,
+  HomeCategories,
+  HomeNearbyPharmacies,
+  HomeMostSales,
+  HomeBottomCTA,
+} from "@/components/home/sections";
 
-export default async function PatientHomePage() {
-  const [featuredCategories, mostSalesProducts, recommendedProducts] =
-    await Promise.all([
-      getFeaturedCategories(),
-      getMostSalesProducts(),
-      getRecommendedProducts(),
-    ]);
-
+export default function PatientHomePage() {
   return (
-    <div className="container mx-auto px-4 py-6">
-      <h1 className="text-t-30 font-bold text-neutral-darker mb-4">
-        Welcome to CureWay
-      </h1>
-      <p className="text-neutral mb-8">
-        Your trusted multi-vendor pharmacy delivery platform
-      </p>
+    <div className="flex flex-col gap-6 pb-12 overflow-x-hidden">
+      {/* 1. Promo banner — sits OUTSIDE the bordered container */}
+      <HomePromoBanner />
 
-      {featuredCategories.length > 0 && (
-        <FeaturedCategories categories={featuredCategories} />
-      )}
+      {/* 2-7. Main content — bordered container per Figma node 1209:375 */}
+      <div className="mx-3 md:mx-6 lg:mx-12 border-2 md:border-4 border-primary/10 rounded-2xl md:rounded-3xl bg-white overflow-hidden">
+        <div className="flex flex-col gap-8 md:gap-10 lg:gap-14 pt-4 md:pt-6 lg:pt-8">
+          {/* 2. Hero section */}
+          <HomeHero />
 
-      {mostSalesProducts.length > 0 && (
-        <MostSales products={mostSalesProducts} />
-      )}
+          {/* 3. Upload prescription CTA */}
+          <HomeUploadPrescription />
 
-      {recommendedProducts.length > 0 && (
-        <RecommendedProducts products={recommendedProducts} />
-      )}
+          {/* 4. Categories grid */}
+          <HomeCategories />
 
-      {featuredCategories.length === 0 &&
-        mostSalesProducts.length === 0 &&
-        recommendedProducts.length === 0 && (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <section className="p-6 bg-card rounded-lg shadow-sm">
-              <h2 className="font-semibold mb-2 text-neutral-darker">
-                Featured Medicines
-              </h2>
-              <p className="text-neutral text-sm">Coming soon...</p>
-            </section>
-            <section className="p-6 bg-card rounded-lg shadow-sm">
-              <h2 className="font-semibold mb-2 text-neutral-darker">
-                Nearby Pharmacies
-              </h2>
-              <p className="text-neutral text-sm">Coming soon...</p>
-            </section>
-            <section className="p-6 bg-card rounded-lg shadow-sm">
-              <h2 className="font-semibold mb-2 text-neutral-darker">
-                Categories
-              </h2>
-              <p className="text-neutral text-sm">Coming soon...</p>
-            </section>
-          </div>
-        )}
+          {/* 5. Nearby pharmacies */}
+          <HomeNearbyPharmacies />
+
+          {/* 6. Most sales products */}
+          <HomeMostSales />
+
+          {/* 7. Bottom CTA — free delivery + find pharmacy */}
+          <HomeBottomCTA />
+        </div>
+      </div>
     </div>
   );
 }

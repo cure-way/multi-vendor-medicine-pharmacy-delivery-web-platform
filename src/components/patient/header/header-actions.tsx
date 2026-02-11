@@ -74,7 +74,7 @@ export function HeaderActions({
       </motion.button>
 
       {/* Location selector - Desktop only */}
-      <div className="hidden md:flex bg-[#f4f4f4] items-center gap-2 h-11 px-2 rounded-lg w-40 lg:w-45">
+      <div className="hidden md:flex bg-secondary-light items-center gap-2 h-11 px-2 rounded-lg w-40 lg:w-45">
         <FiMapPin className="w-4 h-4 text-black/60 shrink-0" />
         <div className="flex-1 flex flex-col gap-1 justify-center">
           <p className="text-xs font-semibold text-black/50">Select Location</p>
@@ -169,7 +169,7 @@ export function MobileMenu({ isOpen, isAuthenticated }: MobileMenuProps) {
         >
           <div className="px-3 py-4 space-y-4">
             {/* Mobile location */}
-            <div className="bg-[#f4f4f4] flex items-center gap-2 h-11 px-2 rounded-lg">
+            <div className="bg-secondary-light flex items-center gap-2 h-11 px-2 rounded-lg">
               <FiMapPin className="w-4 h-4 text-black/60 shrink-0" />
               <div className="flex-1 flex flex-col gap-1 justify-center">
                 <p className="text-xs font-semibold text-black/50">
