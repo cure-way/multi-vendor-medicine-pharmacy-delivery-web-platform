@@ -7,10 +7,10 @@ import { FaCapsules } from "react-icons/fa";
 import { inventoryData, ORDERS } from "@/services/pharmacyData";
 import {
   getMostRequestedCategory,
-  getTopSellingMedicine,
+  getTopSellingMedicines,
 } from "@/services/pharmacyService";
 
-const topSellingMedicine = getTopSellingMedicine(ORDERS);
+const topSellingMedicine = getTopSellingMedicines(ORDERS);
 
 const mostRequestedCategory = getMostRequestedCategory(ORDERS, inventoryData);
 const alertStockItems = inventoryData
@@ -21,7 +21,7 @@ const todaySummaryItems = [
   {
     id: "top-medicine",
     title: "Top Selling Medicine",
-    value: topSellingMedicine ?? "—",
+    value: topSellingMedicine[0].medicine ?? "—",
   },
   {
     id: "top-category",
@@ -121,7 +121,7 @@ export default function QuickActionCard() {
               <span className="text-green-600">✔</span>
 
               <div>
-                <p className="font-medium text-gray-900 text-sm">
+                <p className="mb-1 font-medium text-gray-900 text-sm">
                   {item.title}
                 </p>
                 <p className="text-gray-500 text-xs">{item.value}</p>

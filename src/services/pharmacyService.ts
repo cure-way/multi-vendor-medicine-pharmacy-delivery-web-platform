@@ -1,13 +1,35 @@
-import { InventoryItem, OrderRow } from "@/types/pharmacyTypes";
+import {
+  Day,
+  InventoryItem,
+  OrderRow,
+  OrdersStatusModel,
+  OrderStatusDatum,
+  TopMedicine,
+  WeeklyOrdersDatum,
+} from "@/types/pharmacyTypes";
+import { DAY_ORDER } from "@/utils/pharmacyConstants";
 
-export function getTopSellingMedicine(orders: OrderRow[]) {
-  const count: Record<string, number> = {};
+export function getTopSellingMedicines(orders: OrderRow[]): TopMedicine[] {
+  const count: Record<
+    string,
+    { id: string; medicine: string; orders: number }
+  > = {};
 
   orders.forEach((o) => {
-    count[o.medicine] = (count[o.medicine] ?? 0) + 1;
+    if (!count[o.medicine]) {
+      count[o.medicine] = {
+        id: o.inventoryId,
+        medicine: o.medicine,
+        orders: 0,
+      };
+    }
+
+    count[o.medicine].orders += 1;
   });
 
-  return Object.entries(count).sort((a, b) => b[1] - a[1])[0]?.[0];
+  return Object.values(count)
+    .sort((a, b) => b.orders - a.orders)
+    .slice(0, 4);
 }
 
 export function getMostRequestedCategory(
@@ -58,5 +80,69 @@ export function getExpiryInfo(expiryDate: string) {
     status: "safe" as const,
     daysLeft,
     label: "Not expiring soon",
+  };
+}
+
+export function getOrderStatusData(orders: OrderRow[]): OrderStatusDatum[] {
+  const delivered = orders.filter((o) => o.status === "Delivered").length;
+
+  const pending = orders.filter((o) => o.status === "Pending").length;
+
+  return [
+    { name: "Delivered", value: delivered },
+    { name: "Pending", value: pending },
+  ];
+}
+export function getWeeklyOrdersData(orders: OrderRow[]): WeeklyOrdersDatum[] {
+  const counts: Record<Day, number> = {
+    Sun: 0,
+    Mon: 0,
+    Tue: 0,
+    Wed: 0,
+    Thu: 0,
+    Fri: 0,
+    Sat: 0,
+  };
+
+  orders.forEach((order) => {
+    const day = new Date(order.date).toLocaleDateString("en-US", {
+      weekday: "short",
+    }) as Day;
+
+    counts[day]++;
+  });
+
+  return DAY_ORDER.map((day) => ({
+    day,
+    orders: counts[day],
+  }));
+}
+
+export function buildOrdersStatusModel(
+  data: OrderStatusDatum[],
+): OrdersStatusModel {
+  const total = data.reduce((sum, d) => sum + d.value, 0);
+
+  const completedCount = data.find((d) => d.name === "Delivered")?.value ?? 0;
+
+  const pendingCount = data.find((d) => d.name === "Pending")?.value ?? 0;
+
+  const completedPercent =
+    total > 0 ? Math.round((completedCount / total) * 100) : 0;
+
+  const pendingPercent =
+    total > 0 ? Math.round((pendingCount / total) * 100) : 0;
+
+  return {
+    completedPercent,
+    pendingPercent,
+    outerData: [
+      { name: "Completed", value: completedPercent },
+      { name: "Remaining", value: 100 - completedPercent },
+    ],
+    innerData: [
+      { name: "Pending", value: pendingPercent },
+      { name: "Remaining", value: 100 - pendingPercent },
+    ],
   };
 }
