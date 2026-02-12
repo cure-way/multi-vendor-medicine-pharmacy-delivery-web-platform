@@ -13,6 +13,16 @@ export default function InventoryTable({ data }: { data: InventoryItem[] }) {
   const { pendingAction, handleMedicineAction, handleConfirm, closeAction } =
     useMedicineActions();
 
+  if (!data.length) {
+    return (
+      <div className="bg-white p-10 border rounded-xl text-center">
+        <p className="text-gray-500 text-sm">
+          No medicines found matching your filters
+        </p>
+      </div>
+    );
+  }
+
   return (
     <>
       <DataTable
