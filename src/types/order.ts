@@ -46,7 +46,7 @@ export interface OrderItem {
 
 export interface Notification {
   id: string;
-  type: "order" | "prescription" | "system";
+  type: "order" | "prescription" | "system" | "stock" | "ready";
   title: string;
   message: string;
   read: boolean;

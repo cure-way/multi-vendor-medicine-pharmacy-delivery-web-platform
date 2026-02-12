@@ -1,21 +1,25 @@
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import type { Order, OrderStatus } from '@/types/order';
-import { fetchOrders } from '@/services/orders.services';
+"use client";
+
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import type { Order, OrderStatus } from "@/types/order";
+import { fetchOrders } from "@/services/orders.services";
 
 const statusColors: Record<OrderStatus, string> = {
-  on_the_way: 'bg-amber-50 text-amber-700 border-amber-200',
-  processing: 'bg-blue-50 text-blue-700 border-blue-200',
-  cancelled: 'bg-red-50 text-red-700 border-red-200',
-  delivered: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+  on_the_way: "bg-amber-50 text-amber-700 border-amber-200",
+  processing: "bg-blue-50 text-blue-700 border-blue-200",
+  cancelled: "bg-red-50 text-red-700 border-red-200",
+  delivered: "bg-emerald-50 text-emerald-700 border-emerald-200",
 };
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [selectedStatus, setSelectedStatus] = useState<OrderStatus | 'all'>('all');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedStatus, setSelectedStatus] = useState<OrderStatus | "all">(
+    "all",
+  );
+  const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(50);
 
@@ -26,18 +30,18 @@ export default function OrdersPage() {
   const loadOrders = async () => {
     try {
       setLoading(true);
-      const status = selectedStatus === 'all' ? undefined : selectedStatus;
+      const status = selectedStatus === "all" ? undefined : selectedStatus;
       const data = await fetchOrders(1, 50, status);
       setOrders(data.orders);
     } catch (err) {
-      setError('Failed to load orders');
+      setError("Failed to load orders");
       console.error(err);
     } finally {
       setLoading(false);
     }
   };
 
-  const filteredOrders = orders.filter(order => {
+  const filteredOrders = orders.filter((order) => {
     const query = searchQuery.toLowerCase();
     return (
       order.orderNumber.toLowerCase().includes(query) ||
@@ -49,7 +53,7 @@ export default function OrdersPage() {
   const totalPages = Math.ceil(filteredOrders.length / rowsPerPage);
   const paginatedOrders = filteredOrders.slice(
     (currentPage - 1) * rowsPerPage,
-    currentPage * rowsPerPage
+    currentPage * rowsPerPage,
   );
 
   if (loading) {
@@ -123,7 +127,9 @@ export default function OrdersPage() {
             <div className="relative">
               <select
                 value={selectedStatus}
-                onChange={(e) => setSelectedStatus(e.target.value as OrderStatus | 'all')}
+                onChange={(e) =>
+                  setSelectedStatus(e.target.value as OrderStatus | "all")
+                }
                 className="appearance-none pl-4 pr-10 py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
               >
                 <option value="all">All Status</option>
@@ -153,10 +159,10 @@ export default function OrdersPage() {
               <p className="text-gray-500 text-base mb-2">No orders found</p>
               <p className="text-gray-400 text-sm">
                 {searchQuery
-                  ? 'Try adjusting your search query'
-                  : selectedStatus !== 'all'
-                  ? `No ${selectedStatus} orders at the moment`
-                  : 'Orders will appear here once placed'}
+                  ? "Try adjusting your search query"
+                  : selectedStatus !== "all"
+                    ? `No ${selectedStatus} orders at the moment`
+                    : "Orders will appear here once placed"}
               </p>
             </div>
           ) : (
@@ -189,7 +195,10 @@ export default function OrdersPage() {
                 </thead>
                 <tbody className="divide-y divide-gray-200">
                   {paginatedOrders.map((order) => (
-                    <tr key={order.id} className="hover:bg-gray-50 transition-colors">
+                    <tr
+                      key={order.id}
+                      className="hover:bg-gray-50 transition-colors"
+                    >
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm font-medium text-gray-900">
                           #{order.orderNumber}
@@ -199,7 +208,12 @@ export default function OrdersPage() {
                         <div className="flex items-center gap-3">
                           <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
                             <span className="text-xs font-medium text-blue-700">
-                              {order.customerName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}
+                              {order.customerName
+                                .split(" ")
+                                .map((n) => n[0])
+                                .join("")
+                                .substring(0, 2)
+                                .toUpperCase()}
                             </span>
                           </div>
                           <div>
@@ -207,7 +221,7 @@ export default function OrdersPage() {
                               {order.customerName}
                             </div>
                             <div className="text-xs text-gray-500">
-                              {order.customerPhone || 'No phone'}
+                              {order.customerPhone || "No phone"}
                             </div>
                           </div>
                         </div>
@@ -237,11 +251,14 @@ export default function OrdersPage() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm text-gray-600">
-                          {new Date(order.createdAt).toLocaleDateString('en-US', {
-                            month: 'short',
-                            day: 'numeric',
-                            year: 'numeric'
-                          })}
+                          {new Date(order.createdAt).toLocaleDateString(
+                            "en-US",
+                            {
+                              month: "short",
+                              day: "numeric",
+                              year: "numeric",
+                            },
+                          )}
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -250,7 +267,8 @@ export default function OrdersPage() {
                             statusColors[order.status]
                           }`}
                         >
-                          {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                          {order.status.charAt(0).toUpperCase() +
+                            order.status.slice(1)}
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -262,7 +280,11 @@ export default function OrdersPage() {
                             Action
                           </Link>
                           <button className="text-gray-400 hover:text-gray-600">
-                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <svg
+                              className="w-5 h-5"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
                               <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
                             </svg>
                           </button>
@@ -300,8 +322,18 @@ export default function OrdersPage() {
                   disabled={currentPage === 1}
                   className="p-2 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  <svg
+                    className="w-5 h-5 text-gray-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 19l-7-7 7-7"
+                    />
                   </svg>
                 </button>
 
@@ -324,8 +356,8 @@ export default function OrdersPage() {
                         onClick={() => setCurrentPage(pageNum)}
                         className={`w-8 h-8 rounded text-sm font-medium ${
                           currentPage === pageNum
-                            ? 'bg-blue-600 text-white'
-                            : 'text-gray-700 hover:bg-gray-100'
+                            ? "bg-blue-600 text-white"
+                            : "text-gray-700 hover:bg-gray-100"
                         }`}
                       >
                         {pageNum}
@@ -335,12 +367,24 @@ export default function OrdersPage() {
                 </div>
 
                 <button
-                  onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                  onClick={() =>
+                    setCurrentPage(Math.min(totalPages, currentPage + 1))
+                  }
                   disabled={currentPage === totalPages}
                   className="p-2 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  <svg
+                    className="w-5 h-5 text-gray-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
                   </svg>
                 </button>
               </div>
