@@ -13,11 +13,11 @@ export const INVENTORY_STATUSES = [
 ];
 
 export const ORDER_STATUSES = [
-  "All",
-  "New",
-  "Pending",
-  "Delivered",
-  "Cancelled",
+  { label: "All", value: "All" },
+  { label: "New", value: "New" },
+  { label: "Pending", value: "Pending" },
+  { label: "Delivered", value: "Delivered" },
+  { label: "Cancelled", value: "Cancelled" },
 ];
 
 export const inventoryColumns: Column<InventoryItem>[] = [
@@ -39,7 +39,7 @@ export const INVENTORY_ACTIONS: RowAction[] = [
 export const orderColumns: readonly Column<OrderRow>[] = [
   { key: "id", header: "Order ID" },
   { key: "customer", header: "Customer" },
-  { key: "medicine", header: "Medicine", hideOnMobile: true },
+  { key: "items", header: "Medicine", hideOnMobile: true },
   { key: "total", header: "Total" },
   { key: "date", header: "Date", hideOnMobile: true },
   { key: "status", header: "Status" },

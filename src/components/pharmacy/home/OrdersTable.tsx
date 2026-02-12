@@ -5,6 +5,7 @@ import { OrderRow } from "@/types/pharmacyTypes";
 import { orderColumns } from "@/utils/pharmacyConstants";
 import DataTable from "../shared/DataTable";
 import StatusBadge from "../shared/StatusBadge";
+import { inventoryData } from "@/services/pharmacyData";
 
 export default function OrdersTable({ data }: { data: OrderRow[] }) {
   const router = useRouter();
@@ -20,11 +21,34 @@ export default function OrdersTable({ data }: { data: OrderRow[] }) {
             return <StatusBadge value={row.status} type="order" />;
           }
 
-          if (col.key === "action") {
-            return null;
+          if (col.key === "items") {
+            if (!row.items.length) return "-";
+
+            const firstItem = row.items[0];
+
+            const medicine = inventoryData.find(
+              (inv) => inv.id === firstItem.inventoryId,
+            );
+
+            const remainingCount = row.items.length - 1;
+
+            return (
+              <span>
+                {medicine?.medicineName ?? "Unknown"}
+                {remainingCount > 0 && (
+                  <span className="ml-1 text-gray-500 text-xs">
+                    +{remainingCount}
+                  </span>
+                )}
+              </span>
+            );
           }
 
-          return String(row[col.key]);
+          if (col.key === "total") {
+            return `${row.total.toFixed(2)}$`;
+          }
+
+          return String(row[col.key as keyof OrderRow]);
         }}
       />
 

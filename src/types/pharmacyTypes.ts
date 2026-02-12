@@ -54,13 +54,16 @@ export interface ActionItem<TActionId extends string> {
   danger?: boolean;
   disabled?: boolean;
 }
-
+export interface OrderItem {
+  inventoryId: string;
+  quantity: number;
+  unitPrice: number;
+}
 export interface OrderRow {
   id: string;
-  inventoryId: string;
   customer: string;
-  medicine: string;
-  total: string;
+  items: OrderItem[];
+  total: number;
   date: string;
   status: "Delivered" | "Pending" | "New" | "Cancelled";
 }
@@ -96,6 +99,7 @@ export type Day = (typeof DAY_ORDER)[number];
 export interface TopMedicine {
   id: string;
   medicine: string;
+  sold: number;
   orders: number;
 }
 

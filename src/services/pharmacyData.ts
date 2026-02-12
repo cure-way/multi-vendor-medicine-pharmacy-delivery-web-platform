@@ -111,177 +111,112 @@ export const inventoryData: InventoryItem[] = [
 ];
 
 export const ORDERS: OrderRow[] = [
-  // ===== PARACETAMOL (6 orders)
   {
     id: "O0001",
-    inventoryId: "P0001",
     customer: "Eman Mohammad",
-    medicine: "Paracetamol 500mg",
-    total: "23.00$",
+    items: [
+      { inventoryId: "P0001", quantity: 2, unitPrice: 11.5 },
+      { inventoryId: "P0003", quantity: 1, unitPrice: 18 },
+    ],
+    total: 41,
     date: "11 Feb",
     status: "Delivered",
   },
+
   {
     id: "O0002",
-    inventoryId: "P0001",
     customer: "Ahmad Ali",
-    medicine: "Paracetamol 500mg",
-    total: "23.00$",
+    items: [{ inventoryId: "P0001", quantity: 1, unitPrice: 11.5 }],
+    total: 11.5,
     date: "10 Feb",
     status: "Delivered",
   },
+
   {
     id: "O0003",
-    inventoryId: "P0001",
     customer: "Sara Hassan",
-    medicine: "Paracetamol 500mg",
-    total: "23.00$",
+    items: [
+      { inventoryId: "P0001", quantity: 1, unitPrice: 11.5 },
+      { inventoryId: "P0004", quantity: 2, unitPrice: 6 },
+    ],
+    total: 23.5,
     date: "09 Feb",
     status: "Pending",
   },
+
   {
     id: "O0004",
-    inventoryId: "P0001",
     customer: "Mona Khaled",
-    medicine: "Paracetamol 500mg",
-    total: "23.00$",
+    items: [{ inventoryId: "P0002", quantity: 1, unitPrice: 30 }],
+    total: 30,
     date: "08 Feb",
     status: "Delivered",
   },
+
   {
     id: "O0005",
-    inventoryId: "P0001",
     customer: "Yousef Omar",
-    medicine: "Paracetamol 500mg",
-    total: "23.00$",
+    items: [
+      { inventoryId: "P0003", quantity: 2, unitPrice: 18 },
+      { inventoryId: "P0006", quantity: 1, unitPrice: 15 },
+    ],
+    total: 51,
     date: "07 Feb",
     status: "Delivered",
   },
+
   {
     id: "O0006",
-    inventoryId: "P0001",
     customer: "Lina Ahmad",
-    medicine: "Paracetamol 500mg",
-    total: "23.00$",
+    items: [
+      { inventoryId: "P0005", quantity: 1, unitPrice: 25 },
+      { inventoryId: "P0001", quantity: 1, unitPrice: 11.5 },
+      { inventoryId: "P0004", quantity: 1, unitPrice: 6 },
+    ],
+    total: 42.5,
     date: "06 Feb",
-    status: "Delivered",
+    status: "New",
   },
 
-  // ===== ATORVASTATIN (4 orders)
   {
     id: "O0007",
-    inventoryId: "P0002",
     customer: "Khaled Sami",
-    medicine: "Atorvastatin 20mg",
-    total: "30.00$",
-    date: "11 Feb",
+    items: [
+      { inventoryId: "P0002", quantity: 1, unitPrice: 30 },
+      { inventoryId: "P0003", quantity: 1, unitPrice: 18 },
+    ],
+    total: 48,
+    date: "05 Feb",
     status: "Delivered",
   },
+
   {
     id: "O0008",
-    inventoryId: "P0002",
     customer: "Noor Adel",
-    medicine: "Atorvastatin 20mg",
-    total: "30.00$",
-    date: "10 Feb",
-    status: "Delivered",
-  },
-  {
-    id: "O0009",
-    inventoryId: "P0002",
-    customer: "Rana Yassin",
-    medicine: "Atorvastatin 20mg",
-    total: "30.00$",
-    date: "09 Feb",
-    status: "Pending",
-  },
-  {
-    id: "O0010",
-    inventoryId: "P0002",
-    customer: "Huda Karim",
-    medicine: "Atorvastatin 20mg",
-    total: "30.00$",
-    date: "08 Feb",
-    status: "Delivered",
-  },
-
-  // ===== VITAMIN D3 (3 orders)
-  {
-    id: "O0011",
-    inventoryId: "P0003",
-    customer: "Omar Nabil",
-    medicine: "Vitamin D3 1000 IU",
-    total: "18.00$",
-    date: "11 Feb",
-    status: "Delivered",
-  },
-  {
-    id: "O0012",
-    inventoryId: "P0003",
-    customer: "Mariam Said",
-    medicine: "Vitamin D3 1000 IU",
-    total: "18.00$",
-    date: "10 Feb",
-    status: "Pending",
-  },
-  {
-    id: "O0013",
-    inventoryId: "P0003",
-    customer: "Samir Fadi",
-    medicine: "Vitamin D3 1000 IU",
-    total: "18.00$",
-    date: "09 Feb",
-    status: "Delivered",
-  },
-
-  // ===== ASPIRIN (2 orders)
-  {
-    id: "O0014",
-    inventoryId: "P0004",
-    customer: "Hana Mahmoud",
-    medicine: "Aspirin 100mg",
-    total: "12.00$",
-    date: "10 Feb",
+    items: [{ inventoryId: "P0006", quantity: 2, unitPrice: 15 }],
+    total: 30,
+    date: "04 Feb",
     status: "Cancelled",
   },
+
   {
-    id: "O0015",
-    inventoryId: "P0004",
-    customer: "Mahmoud Tarek",
-    medicine: "Aspirin 100mg",
-    total: "12.00$",
-    date: "08 Feb",
+    id: "O0009",
+    customer: "Rana Yassin",
+    items: [
+      { inventoryId: "P0003", quantity: 1, unitPrice: 18 },
+      { inventoryId: "P0001", quantity: 1, unitPrice: 11.5 },
+    ],
+    total: 29.5,
+    date: "03 Feb",
     status: "Pending",
   },
 
-  // ===== AMOXICILLIN (2 orders)
   {
-    id: "O0016",
-    inventoryId: "P0005",
-    customer: "Nour Ali",
-    medicine: "Amoxicillin 500mg",
-    total: "25.00$",
-    date: "07 Feb",
-    status: "New",
-  },
-  {
-    id: "O0017",
-    inventoryId: "P0005",
-    customer: "Yara Sami",
-    medicine: "Amoxicillin 500mg",
-    total: "25.00$",
-    date: "06 Feb",
-    status: "New",
-  },
-
-  // ===== IBUPROFEN (1 order)
-  {
-    id: "O0018",
-    inventoryId: "P0006",
-    customer: "Ziad Nasser",
-    medicine: "Ibuprofen 400mg",
-    total: "15.00$",
-    date: "05 Feb",
-    status: "New",
+    id: "O0010",
+    customer: "Huda Karim",
+    items: [{ inventoryId: "P0004", quantity: 3, unitPrice: 6 }],
+    total: 18,
+    date: "02 Feb",
+    status: "Delivered",
   },
 ];

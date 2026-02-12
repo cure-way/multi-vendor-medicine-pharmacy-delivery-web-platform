@@ -10,26 +10,45 @@ import {
 } from "@/types/pharmacyTypes";
 import { DAY_ORDER } from "@/utils/pharmacyConstants";
 
-export function getTopSellingMedicines(orders: OrderRow[]): TopMedicine[] {
+export function getTopSellingMedicines(
+  orders: OrderRow[],
+  inventory: InventoryItem[],
+): TopMedicine[] {
+  const inventoryMap = Object.fromEntries(
+    inventory.map((item) => [item.id, item]),
+  );
+
   const count: Record<
     string,
-    { id: string; medicine: string; orders: number }
+    { id: string; medicine: string; sold: number; orders: number }
   > = {};
 
-  orders.forEach((o) => {
-    if (!count[o.medicine]) {
-      count[o.medicine] = {
-        id: o.inventoryId,
-        medicine: o.medicine,
-        orders: 0,
-      };
-    }
+  for (const order of orders) {
+    const seenInThisOrder = new Set<string>();
 
-    count[o.medicine].orders += 1;
-  });
+    for (const item of order.items) {
+      if (!count[item.inventoryId]) {
+        count[item.inventoryId] = {
+          id: item.inventoryId,
+          medicine: inventoryMap[item.inventoryId]?.medicineName ?? "Unknown",
+          sold: 0,
+          orders: 0,
+        };
+      }
+
+      // Count quantity sold
+      count[item.inventoryId].sold += item.quantity;
+
+      // Count distinct orders
+      if (!seenInThisOrder.has(item.inventoryId)) {
+        count[item.inventoryId].orders += 1;
+        seenInThisOrder.add(item.inventoryId);
+      }
+    }
+  }
 
   return Object.values(count)
-    .sort((a, b) => b.orders - a.orders)
+    .sort((a, b) => b.sold - a.sold)
     .slice(0, 4);
 }
 
@@ -41,12 +60,14 @@ export function getMostRequestedCategory(
 
   const counts: Record<string, number> = {};
 
-  orders.forEach((order) => {
-    const category = inventoryMap.get(order.inventoryId);
-    if (!category) return;
+  for (const order of orders) {
+    for (const item of order.items) {
+      const category = inventoryMap.get(item.inventoryId);
+      if (!category) continue;
 
-    counts[category] = (counts[category] ?? 0) + 1;
-  });
+      counts[category] = (counts[category] ?? 0) + item.quantity;
+    }
+  }
 
   return Object.entries(counts).sort((a, b) => b[1] - a[1])[0]?.[0];
 }
