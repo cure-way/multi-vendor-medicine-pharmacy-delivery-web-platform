@@ -242,7 +242,7 @@ export const ORDERS: OrderRow[] = [
     medicine: "Aspirin 100mg",
     total: "12.00$",
     date: "10 Feb",
-    status: "Delivered",
+    status: "Cancelled",
   },
   {
     id: "O0015",
@@ -262,7 +262,7 @@ export const ORDERS: OrderRow[] = [
     medicine: "Amoxicillin 500mg",
     total: "25.00$",
     date: "07 Feb",
-    status: "Delivered",
+    status: "New",
   },
   {
     id: "O0017",
@@ -271,7 +271,7 @@ export const ORDERS: OrderRow[] = [
     medicine: "Amoxicillin 500mg",
     total: "25.00$",
     date: "06 Feb",
-    status: "Delivered",
+    status: "New",
   },
 
   // ===== IBUPROFEN (1 order)
@@ -282,6 +282,6 @@ export const ORDERS: OrderRow[] = [
     medicine: "Ibuprofen 400mg",
     total: "15.00$",
     date: "05 Feb",
-    status: "Pending",
+    status: "New",
   },
 ];

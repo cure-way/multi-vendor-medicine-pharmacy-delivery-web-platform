@@ -4,24 +4,20 @@ import { useRouter } from "next/navigation";
 import { OrderRow } from "@/types/pharmacyTypes";
 import { orderColumns } from "@/utils/pharmacyConstants";
 import DataTable from "../shared/DataTable";
-import { ORDERS } from "@/services/pharmacyData";
+import StatusBadge from "../shared/StatusBadge";
 
-export default function OrdersTable() {
+export default function OrdersTable({ data }: { data: OrderRow[] }) {
   const router = useRouter();
 
   return (
     <div>
       <DataTable<OrderRow>
-        data={ORDERS}
+        data={data}
         columns={orderColumns}
         onRowClick={(row) => router.push(`/pharmacy/orders/${row.id}`)}
         renderCell={(row, col) => {
           if (col.key === "status") {
-            return (
-              <span className="inline-flex rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-(--color-primary)">
-                {row.status}
-              </span>
-            );
+            return <StatusBadge value={row.status} type="order" />;
           }
 
           if (col.key === "action") {

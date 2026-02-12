@@ -21,7 +21,7 @@ export interface InventoryItem {
 
   stock: number;
   minStock: number;
-  status: "in" | "low" | "out";
+  status: InventoryStatus;
 
   batchNumber: string;
   expiryDate: string;
@@ -62,7 +62,7 @@ export interface OrderRow {
   medicine: string;
   total: string;
   date: string;
-  status: "Delivered" | "Pending" | "Cancelled";
+  status: "Delivered" | "Pending" | "New" | "Cancelled";
 }
 
 export interface EditMedicinePayload {

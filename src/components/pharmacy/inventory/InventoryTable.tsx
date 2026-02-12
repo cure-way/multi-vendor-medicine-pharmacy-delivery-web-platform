@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import ActionsDropdown from "../shared/ActionsDropdown";
 import { ActionId, InventoryItem } from "@/types/pharmacyTypes";
 import { INVENTORY_ACTIONS, inventoryColumns } from "@/utils/pharmacyConstants";
+import StatusBadge from "../shared/StatusBadge";
+import { getInventoryStatus } from "@/services/pharmacyService";
 
 export default function InventoryTable({ data }: { data: InventoryItem[] }) {
   const router = useRouter();
@@ -45,24 +47,9 @@ export default function InventoryTable({ data }: { data: InventoryItem[] }) {
 
         if (col.key === "status") {
           return (
-            <span
-              className={`inline-flex rounded-full px-4 py-1.5 text-xs font-medium ${
-                row.status === "in"
-                  ? "bg-green-100 text-green-700"
-                  : row.status === "low"
-                    ? "bg-yellow-100 text-yellow-700"
-                    : "bg-red-100 text-red-700"
-              }`}
-            >
-              {row.status === "in"
-                ? "In Stock"
-                : row.status === "low"
-                  ? "Low Stock"
-                  : "Out of Stock"}
-            </span>
+            <StatusBadge value={getInventoryStatus(row)} type="inventory" />
           );
         }
-
         return String(row[col.key]);
       }}
     />

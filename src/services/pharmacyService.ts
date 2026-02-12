@@ -1,6 +1,7 @@
 import {
   Day,
   InventoryItem,
+  InventoryStatus,
   OrderRow,
   OrdersStatusModel,
   OrderStatusDatum,
@@ -209,4 +210,10 @@ export function getReportStats(orders: OrderRow[]): {
     totalOrders,
     deliveredCount,
   };
+}
+
+export function getInventoryStatus(item: InventoryItem): InventoryStatus {
+  if (item.stock === 0) return "out";
+  if (item.stock <= item.minStock) return "low";
+  return "in";
 }

@@ -6,13 +6,19 @@ import {
 } from "@/types/pharmacyTypes";
 
 export const INVENTORY_STATUSES = [
-  "All Status",
-  "In Stock",
-  "Low Stock",
-  "Out Of Stock",
+  { label: "All Status", value: "all" },
+  { label: "In Stock", value: "in" },
+  { label: "Low Stock", value: "low" },
+  { label: "Out Of Stock", value: "out" },
 ];
 
-export const ORDER_STATUSES = ["All", "New", "Past", "Delivered"];
+export const ORDER_STATUSES = [
+  "All",
+  "New",
+  "Pending",
+  "Delivered",
+  "Cancelled",
+];
 
 export const inventoryColumns: Column<InventoryItem>[] = [
   { key: "id", header: "ID" },

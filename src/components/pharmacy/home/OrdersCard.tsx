@@ -4,9 +4,15 @@ import { useState } from "react";
 import StatusDropdown from "../shared/StatusDropdown";
 import OrdersTable from "./OrdersTable";
 import { ORDER_STATUSES } from "@/utils/pharmacyConstants";
+import { ORDERS } from "@/services/pharmacyData";
 
 export default function OrdersCard() {
   const [status, setStatus] = useState("All");
+
+  const filteredOrders =
+    status === "All"
+      ? ORDERS
+      : ORDERS.filter((order) => order.status === status);
 
   return (
     <div className="bg-white mb-6 p-4 border rounded-xl">
@@ -19,7 +25,7 @@ export default function OrdersCard() {
         />
       </div>
 
-      <OrdersTable />
+      <OrdersTable data={filteredOrders} />
     </div>
   );
 }
