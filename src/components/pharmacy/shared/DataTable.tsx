@@ -5,6 +5,7 @@ import { ReactNode, useMemo } from "react";
 import StatusDropdown from "./StatusDropdown";
 import { usePagination } from "@/hooks/usePagination";
 import { Column } from "@/types/pharmacyTypes";
+import { ROWS_PER_PAGE_OPTIONS } from "@/utils/pharmacyConstants";
 export interface DataTableProps<T extends { id: string }> {
   data: T[];
   columns: readonly Column<T>[];
@@ -22,9 +23,8 @@ export default function DataTable<T extends { id: string }>({
   columns,
   onRowClick,
   renderCell,
-  defaultRowsPerPage = 10,
+  defaultRowsPerPage = 5,
 }: DataTableProps<T>) {
-  const rowsPerPageOptions = [5, 10, 20].map(String);
   const { page, rowsPerPage, totalPages, offset, setPage, setRowsPerPage } =
     usePagination({
       totalItems: data.length,
@@ -91,7 +91,7 @@ export default function DataTable<T extends { id: string }>({
           </span>
 
           <StatusDropdown
-            options={rowsPerPageOptions}
+            options={ROWS_PER_PAGE_OPTIONS}
             value={String(rowsPerPage)}
             direction="up"
             onChange={(value) => setRowsPerPage(Number(value))}

@@ -11,7 +11,7 @@ interface UsePaginationOptions {
 export function usePagination({
   totalItems,
   defaultPage = 1,
-  defaultRowsPerPage = 10,
+  defaultRowsPerPage = 5,
 }: UsePaginationOptions) {
   const [page, setPage] = useState(defaultPage);
   const [rowsPerPage, setRowsPerPage] = useState(defaultRowsPerPage);
