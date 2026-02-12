@@ -32,7 +32,6 @@ export const inventoryColumns: Column<InventoryItem>[] = [
 
 export const INVENTORY_ACTIONS: RowAction[] = [
   { id: "view", label: "View details" },
-  { id: "mark_low", label: "Mark as low stock" },
   { id: "mark_out", label: "Mark as out of stock" },
   { id: "delete", label: "Delete medicine", danger: true },
 ];

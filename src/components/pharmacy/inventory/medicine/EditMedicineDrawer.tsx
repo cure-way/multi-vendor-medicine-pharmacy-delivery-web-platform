@@ -23,7 +23,7 @@ export default function EditMedicineDrawer({ open, onClose, item }: Props) {
       <div
         onClick={onClose}
         className={clsx(
-          "z-999 fixed inset-0 bg-black/40 transition-opacity",
+          "z-50 fixed inset-0 bg-black/40 w-screen h-screen transition-opacity",
           open ? "opacity-100" : "pointer-events-none opacity-0",
         )}
       />
