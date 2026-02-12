@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { InventoryItem, OrderRow } from "@/types/pharmacyTypes";
+import { InventoryItem, MatchedOrder } from "@/types/pharmacyTypes";
 
 interface GlobalSearchPanelProps {
   medicines: InventoryItem[];
-  orders: OrderRow[];
+  orders: MatchedOrder[];
   onItemClick?: () => void;
 }
 
@@ -73,19 +73,26 @@ export default function GlobalSearchPanel({
 
         {activeTab === "orders" &&
           (orders.length ? (
-            orders.map((o) => (
-              <div
-                key={o.id}
-                onClick={() => {
-                  router.push(`/pharmacy/orders/${o.id}`);
-                  onItemClick?.();
-                }}
-                className="hover:bg-gray-100 p-2 rounded-lg text-sm cursor-pointer"
-              >
-                <p className="font-medium">Order #{o.id}</p>
-                <p className="text-gray-500 text-xs">{o.medicine} items</p>
-              </div>
-            ))
+            orders.map(({ order, matchedItems }) => {
+              return (
+                <div
+                  key={order.id}
+                  onClick={() => {
+                    router.push(`/pharmacy/orders/${order.id}`);
+                    onItemClick?.();
+                  }}
+                  className="hover:bg-gray-100 p-2 rounded-lg text-sm cursor-pointer"
+                >
+                  <p className="font-medium">Order #{order.id}</p>
+
+                  <p className="text-gray-500 text-xs">
+                    {matchedItems[0].medicineName}
+                    {matchedItems.length > 1 &&
+                      ` +${matchedItems.length - 1} more`}
+                  </p>
+                </div>
+              );
+            })
           ) : (
             <p className="py-4 text-gray-500 text-sm text-center">
               No orders found

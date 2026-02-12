@@ -3,10 +3,8 @@
 import { FaBars, FaBell } from "react-icons/fa";
 import PharmacyMenu from "./PharmacyMenu";
 import { useRouter } from "next//navigation";
-import { useMemo, useState } from "react";
-import { inventoryData, ORDERS } from "@/services/pharmacyData";
 import GlobalSearchPanel from "./GlobalSearchModal";
-import { useClickOutside } from "@/hooks";
+import { useGlobalSearch } from "@/hooks/pharmacy/useGlobalSearch";
 
 interface TopBarProps {
   onMenuClick: () => void;
@@ -14,27 +12,8 @@ interface TopBarProps {
 
 export default function TopBar({ onMenuClick }: TopBarProps) {
   const router = useRouter();
-  const [search, setSearch] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
-  const searchRef = useClickOutside<HTMLDivElement>(() => {
-    setIsOpen(false);
-  });
-
-  const results = useMemo(() => {
-    if (!search.trim()) return null;
-
-    const query = search.toLowerCase();
-
-    const medicines = inventoryData.filter((m) =>
-      m.medicineName.toLowerCase().includes(query),
-    );
-
-    const orders = ORDERS.filter((order) =>
-      order.medicine.toLowerCase().includes(query),
-    );
-
-    return { medicines, orders };
-  }, [search]);
+  const { search, setSearch, isOpen, setIsOpen, searchRef, results } =
+    useGlobalSearch();
 
   return (
     <>

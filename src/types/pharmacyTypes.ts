@@ -109,3 +109,7 @@ export interface OrdersStatusModel {
   outerData: { name: string; value: number }[];
   innerData: { name: string; value: number }[];
 }
+export interface MatchedOrder {
+  order: OrderRow;
+  matchedItems: InventoryItem[];
+}
