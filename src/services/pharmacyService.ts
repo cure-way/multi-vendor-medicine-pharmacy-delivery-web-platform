@@ -146,3 +146,67 @@ export function buildOrdersStatusModel(
     ],
   };
 }
+
+export function getOrdersSummary(orders: OrderRow[]): {
+  totalToday: number;
+  delivered: number;
+} {
+  // For now we assume all ORDERS are "today"
+  // Later we can filter by real date
+
+  const totalToday = orders.length;
+
+  const delivered = orders.filter(
+    (order) => order.status === "Delivered",
+  ).length;
+
+  return {
+    totalToday,
+    delivered,
+  };
+}
+
+export function getInventoryAlerts(
+  items: InventoryItem[],
+): { title: string; description: string } | null {
+  const outOfStockCount = items.filter((item) => item.stock === 0).length;
+
+  if (outOfStockCount === 0) return null;
+
+  return {
+    title: "Medication Out Of Stock Alert",
+    description: `${outOfStockCount} medication${
+      outOfStockCount > 1 ? "s are" : " is"
+    } currently out of stock.`,
+  };
+}
+
+export function getReportStats(orders: OrderRow[]): {
+  completionRate: number;
+  pendingRate: number;
+  totalOrders: number;
+  deliveredCount: number;
+} {
+  const totalOrders = orders.length;
+
+  const deliveredCount = orders.filter(
+    (order) => order.status === "Delivered",
+  ).length;
+
+  const pendingCount = orders.filter(
+    (order) => order.status === "Pending",
+  ).length;
+
+  const completionRate =
+    totalOrders === 0 ? 0 : Math.round((deliveredCount / totalOrders) * 100);
+
+  const pendingRate =
+    totalOrders === 0 ? 0 : Math.round((pendingCount / totalOrders) * 100);
+
+  return {
+    completionRate,
+    pendingRate,
+    totalOrders,
+    deliveredCount,
+  };
+}

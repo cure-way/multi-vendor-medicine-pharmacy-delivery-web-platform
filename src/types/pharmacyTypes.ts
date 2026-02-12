@@ -30,7 +30,6 @@ export interface InventoryItem {
   purchasePrice: number;
   sellingPrice: number;
 
-  /** NEW */
   imageUrl?: string;
   usageNotes?: string[];
 }
@@ -66,9 +65,6 @@ export interface OrderRow {
   status: "Delivered" | "Pending" | "Cancelled";
 }
 
-export interface UsageNote {
-  value: string;
-}
 export interface EditMedicinePayload {
   medicineName: string;
   category: string;
