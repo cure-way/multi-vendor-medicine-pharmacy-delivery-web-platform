@@ -109,3 +109,17 @@ export interface OrdersStatusModel {
   outerData: { name: string; value: number }[];
   innerData: { name: string; value: number }[];
 }
+
+export interface Pharmacy {
+  id: string;
+  name: string;
+  address: string;
+  distance: string;
+  distanceInKm: number;
+  rating: number;
+  reviewCount: number;
+  deliveryFee: number;
+  imageUrl?: string;
+  isOpen: boolean;
+  openingHours?: string;
+}
