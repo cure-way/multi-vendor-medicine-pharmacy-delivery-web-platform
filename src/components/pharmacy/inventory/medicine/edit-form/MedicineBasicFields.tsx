@@ -1,13 +1,22 @@
+import StatusDropdown from "@/components/pharmacy/shared/StatusDropdown";
 import { EditMedicineFormValues } from "@/types/pharmacyTypes";
-import { FieldErrors, UseFormRegister } from "react-hook-form";
+import { INVENTORY_STATUSES } from "@/utils/pharmacyConstants";
+import {
+  Control,
+  Controller,
+  FieldErrors,
+  UseFormRegister,
+} from "react-hook-form";
 
 interface MedicineBasicFieldsProps {
   register: UseFormRegister<EditMedicineFormValues>;
+  control: Control<EditMedicineFormValues>;
   errors: FieldErrors<EditMedicineFormValues>;
 }
 
 export default function MedicineBasicFields({
   register,
+  control,
   errors,
 }: MedicineBasicFieldsProps) {
   return (
@@ -79,6 +88,27 @@ export default function MedicineBasicFields({
         />
 
         <FieldError message={errors.expiryDate?.message} />
+      </div>
+
+      {/* Status */}
+      <div>
+        <label className="block mb-1 font-medium text-gray-700">Status *</label>
+
+        <Controller
+          name="status"
+          control={control}
+          rules={{ required: "Status is required" }}
+          render={({ field }) => (
+            <StatusDropdown
+              options={INVENTORY_STATUSES.slice(1)}
+              value={field.value}
+              onChange={field.onChange}
+              className="justify-between w-full"
+            />
+          )}
+        />
+
+        <FieldError message={errors.status?.message} />
       </div>
     </>
   );

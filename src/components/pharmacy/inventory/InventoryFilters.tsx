@@ -3,6 +3,8 @@
 import { Plus, Search } from "lucide-react";
 import StatusDropdown from "../shared/StatusDropdown";
 import { INVENTORY_STATUSES } from "@/utils/pharmacyConstants";
+import AddMedicineModal from "./medicine/AddMedicineModal";
+import { useState } from "react";
 
 interface InventoryFiltersProps {
   status: string;
@@ -18,6 +20,8 @@ export default function InventoryFilters({
   search,
   onSearchChange,
 }: InventoryFiltersProps) {
+  const [openAddModal, setOpenAddModal] = useState(false);
+
   return (
     <div className="flex flex-wrap justify-end items-center gap-3">
       <div className="relative flex flex-1 items-center bg-(--color-secondary-light) border rounded-lg">
@@ -37,9 +41,17 @@ export default function InventoryFilters({
         onChange={onStatusChange}
       />
 
-      <button className="hover:bg-gray-100 p-2 border border-gray-200 rounded-lg">
+      <button
+        onClick={() => setOpenAddModal(true)}
+        className="hover:bg-gray-100 p-2 border border-gray-200 rounded-lg"
+      >
         <Plus className="w-4 h-4 text-(--color-primary)" />
       </button>
+
+      <AddMedicineModal
+        open={openAddModal}
+        onClose={() => setOpenAddModal(false)}
+      />
     </div>
   );
 }

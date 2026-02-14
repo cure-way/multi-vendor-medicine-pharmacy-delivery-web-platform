@@ -2,7 +2,7 @@
 
 import clsx from "clsx";
 import { X } from "lucide-react";
-import { EditMedicinePayload, InventoryItem } from "@/types/pharmacyTypes";
+import { MedicineFormPayload, InventoryItem } from "@/types/pharmacyTypes";
 import EditMedicineForm from "./edit-form/EditMedicineForm";
 
 interface Props {
@@ -12,8 +12,7 @@ interface Props {
 }
 
 export default function EditMedicineDrawer({ open, onClose, item }: Props) {
-  function handleSave(data: EditMedicinePayload) {
-    // await updateInventoryItem(item.id, data)
+  function handleSave(data: MedicineFormPayload) {
     onClose();
   }
 

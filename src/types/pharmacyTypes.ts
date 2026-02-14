@@ -68,20 +68,23 @@ export interface OrderRow {
   status: "Delivered" | "Pending" | "New" | "Cancelled";
 }
 
-export interface EditMedicinePayload {
+export interface MedicineFormValues {
   medicineName: string;
   category: string;
   stock: number;
   expiryDate: string;
-  usageNotes: string[];
-  imageFile?: File | null;
-}
-export interface EditMedicineFormValues {
-  medicineName: string;
-  category: string;
-  stock: number;
-  expiryDate: string;
+  status: InventoryStatus;
   usageNotes: { value: string }[];
+  imageUrl?: File | null;
+}
+export interface MedicineFormPayload {
+  medicineName: string;
+  category: string;
+  stock: number;
+  expiryDate: string;
+  status: InventoryStatus;
+  usageNotes: string[];
+  imageUrl?: File | null;
 }
 
 export interface OrderStatusDatum {

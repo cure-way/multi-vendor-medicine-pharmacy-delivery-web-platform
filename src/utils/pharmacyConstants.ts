@@ -29,9 +29,9 @@ export const ROWS_PER_PAGE_OPTIONS = [
 export const inventoryColumns: Column<InventoryItem>[] = [
   { key: "id", header: "ID" },
   { key: "medicineName", header: "Medicine" },
-  { key: "brand", header: "Brand" },
-  { key: "stock", header: "Stock" },
-  { key: "expiryDate", header: "Expiration" },
+  { key: "brand", header: "Brand", hideOnMobile: true },
+  { key: "stock", header: "Stock", hideOnMobile: true },
+  { key: "expiryDate", header: "Expiration", hideOnMobile: true },
   { key: "status", header: "Status" },
   { key: "action", header: "" },
 ];
@@ -44,7 +44,7 @@ export const INVENTORY_ACTIONS: RowAction[] = [
 
 export const orderColumns: readonly Column<OrderRow>[] = [
   { key: "id", header: "Order ID" },
-  { key: "customer", header: "Customer" },
+  { key: "customer", header: "Customer", hideOnMobile: true },
   { key: "items", header: "Medicine", hideOnMobile: true },
   { key: "total", header: "Total" },
   { key: "date", header: "Date", hideOnMobile: true },

@@ -4,7 +4,6 @@ import { useState, useMemo } from "react";
 import InventoryFilters from "./InventoryFilters";
 import InventoryTable from "./InventoryTable";
 import { InventoryItem } from "@/types/pharmacyTypes";
-import { getInventoryStatus } from "@/services/pharmacyService";
 
 interface InventorySectionProps {
   data: InventoryItem[];
@@ -27,7 +26,7 @@ export default function InventorySection({ data }: InventorySectionProps) {
 
     if (status === "all") return searchFiltered;
 
-    return searchFiltered.filter((item) => getInventoryStatus(item) === status);
+    return searchFiltered.filter((item) => item.status === status);
   }, [data, search, status]);
 
   return (

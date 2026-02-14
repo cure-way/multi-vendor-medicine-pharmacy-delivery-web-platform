@@ -25,7 +25,7 @@ export default function PharmacyMedicineInfo({
           </div>
 
           <Image
-            src={item.imageUrl ?? "/panadol.png"}
+            src={"/placeholder-medicine.png"}
             alt={item.medicineName}
             className="self-center order-1 sm:order-2 max-w-75 max-h-40 object-contain"
             width={200}

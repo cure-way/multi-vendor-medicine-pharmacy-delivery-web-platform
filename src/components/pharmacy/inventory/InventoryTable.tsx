@@ -5,7 +5,6 @@ import ActionsDropdown from "../shared/ActionsDropdown";
 import { InventoryItem } from "@/types/pharmacyTypes";
 import { INVENTORY_ACTIONS, inventoryColumns } from "@/utils/pharmacyConstants";
 import StatusBadge from "../shared/StatusBadge";
-import { getInventoryStatus } from "@/services/pharmacyService";
 import ConfirmActionModal from "../shared/ConfirmActionModal";
 import { useMedicineActions } from "@/hooks/pharmacy/useMedicineActions";
 
@@ -39,9 +38,7 @@ export default function InventoryTable({ data }: { data: InventoryItem[] }) {
           }
 
           if (col.key === "status") {
-            return (
-              <StatusBadge value={getInventoryStatus(row)} type="inventory" />
-            );
+            return <StatusBadge value={row.status} type="inventory" />;
           }
           return String(row[col.key]);
         }}
