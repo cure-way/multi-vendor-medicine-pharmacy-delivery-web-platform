@@ -3,7 +3,7 @@
 import clsx from "clsx";
 import { X } from "lucide-react";
 import { MedicineFormPayload, InventoryItem } from "@/types/pharmacyTypes";
-import EditMedicineForm from "./edit-form/EditMedicineForm";
+import EditMedicineForm from "./EditMedicineForm";
 
 interface Props {
   open: boolean;

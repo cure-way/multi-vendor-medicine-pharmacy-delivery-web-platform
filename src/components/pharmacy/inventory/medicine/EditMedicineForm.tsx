@@ -1,6 +1,6 @@
 import { InventoryItem, MedicineFormPayload } from "@/types/pharmacyTypes";
 
-import MedicineForm from "./MedicineForm";
+import MedicineForm from "./form/MedicineForm";
 
 interface EditMedicineFormProps {
   item: InventoryItem;

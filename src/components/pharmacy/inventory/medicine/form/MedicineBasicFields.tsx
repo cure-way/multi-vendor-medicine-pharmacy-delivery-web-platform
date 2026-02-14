@@ -1,5 +1,5 @@
 import StatusDropdown from "@/components/pharmacy/shared/StatusDropdown";
-import { EditMedicineFormValues } from "@/types/pharmacyTypes";
+import { MedicineFormValues } from "@/types/pharmacyTypes";
 import { INVENTORY_STATUSES } from "@/utils/pharmacyConstants";
 import {
   Control,
@@ -9,9 +9,9 @@ import {
 } from "react-hook-form";
 
 interface MedicineBasicFieldsProps {
-  register: UseFormRegister<EditMedicineFormValues>;
-  control: Control<EditMedicineFormValues>;
-  errors: FieldErrors<EditMedicineFormValues>;
+  register: UseFormRegister<MedicineFormValues>;
+  control: Control<MedicineFormValues>;
+  errors: FieldErrors<MedicineFormValues>;
 }
 
 export default function MedicineBasicFields({

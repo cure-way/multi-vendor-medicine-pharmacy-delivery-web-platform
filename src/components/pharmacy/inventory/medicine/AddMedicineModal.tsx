@@ -3,7 +3,7 @@
 import { MedicineFormPayload } from "@/types/pharmacyTypes";
 
 import { X } from "lucide-react";
-import MedicineForm from "./edit-form/MedicineForm";
+import MedicineForm from "./form/MedicineForm";
 
 interface Props {
   open: boolean;
