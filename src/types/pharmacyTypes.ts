@@ -116,3 +116,16 @@ export interface MatchedOrder {
   order: OrderRow;
   matchedItems: InventoryItem[];
 }
+export interface Pharmacy {
+  id: string;
+  name: string;
+  address: string;
+  distance: string;
+  distanceInKm: number;
+  rating: number;
+  reviewCount: number;
+  deliveryFee: number;
+  imageUrl?: string;
+  isOpen: boolean;
+  openingHours?: string;
+}
