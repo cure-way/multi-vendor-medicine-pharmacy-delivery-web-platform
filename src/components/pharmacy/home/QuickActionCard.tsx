@@ -10,7 +10,7 @@ import {
   getTopSellingMedicines,
 } from "@/services/pharmacyService";
 
-const topSellingMedicine = getTopSellingMedicines(ORDERS);
+const topSellingMedicine = getTopSellingMedicines(ORDERS, inventoryData);
 
 const mostRequestedCategory = getMostRequestedCategory(ORDERS, inventoryData);
 const alertStockItems = inventoryData

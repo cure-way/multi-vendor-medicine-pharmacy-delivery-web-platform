@@ -1,70 +1,67 @@
 "use client";
 
 import DataTable from "../shared/DataTable";
-import { useRouter } from "next/navigation";
 import ActionsDropdown from "../shared/ActionsDropdown";
-import { ActionId, InventoryItem } from "@/types/pharmacyTypes";
+import { InventoryItem } from "@/types/pharmacyTypes";
 import { INVENTORY_ACTIONS, inventoryColumns } from "@/utils/pharmacyConstants";
+import StatusBadge from "../shared/StatusBadge";
+import ConfirmActionModal from "../shared/ConfirmActionModal";
+import { useMedicineActions } from "@/hooks/pharmacy/useMedicineActions";
 
 export default function InventoryTable({ data }: { data: InventoryItem[] }) {
-  const router = useRouter();
+  const { pendingAction, handleMedicineAction, handleConfirm, closeAction } =
+    useMedicineActions();
 
-  function handleAction(action: ActionId, row: InventoryItem) {
-    switch (action) {
-      case "view":
-        router.push(`/pharmacy/inventory/${row.id}`);
-        break;
-
-      case "mark_low":
-        // markLowStock(row.id);
-        break;
-
-      case "mark_out":
-        // markOutStock(row.id);
-        break;
-
-      case "delete":
-        // deleteMedicine(row.id);
-        break;
-    }
+  if (!data.length) {
+    return (
+      <div className="bg-white p-10 border rounded-xl text-center">
+        <p className="text-gray-500 text-sm">
+          No medicines found matching your filters
+        </p>
+      </div>
+    );
   }
 
   return (
-    <DataTable
-      data={data}
-      columns={inventoryColumns}
-      renderCell={(row, col) => {
-        if (col.key === "action") {
-          return (
-            <ActionsDropdown
-              actions={INVENTORY_ACTIONS}
-              onAction={(actionId) => handleAction(actionId, row)}
-            />
-          );
-        }
+    <>
+      <DataTable
+        data={data}
+        columns={inventoryColumns}
+        renderCell={(row, col) => {
+          if (col.key === "action") {
+            return (
+              <ActionsDropdown
+                actions={INVENTORY_ACTIONS}
+                onAction={(actionId) => handleMedicineAction(actionId, row)}
+              />
+            );
+          }
 
-        if (col.key === "status") {
-          return (
-            <span
-              className={`inline-flex rounded-full px-4 py-1.5 text-xs font-medium ${
-                row.status === "in"
-                  ? "bg-green-100 text-green-700"
-                  : row.status === "low"
-                    ? "bg-yellow-100 text-yellow-700"
-                    : "bg-red-100 text-red-700"
-              }`}
-            >
-              {row.status === "in"
-                ? "In Stock"
-                : row.status === "low"
-                  ? "Low Stock"
-                  : "Out of Stock"}
-            </span>
-          );
+          if (col.key === "status") {
+            return <StatusBadge value={row.status} type="inventory" />;
+          }
+          return String(row[col.key]);
+        }}
+      />
+      <ConfirmActionModal
+        open={!!pendingAction}
+        title={
+          pendingAction?.type === "delete"
+            ? "Delete Medicine"
+            : "Mark as Out of Stock"
         }
-
-        return String(row[col.key]);
-      }}
-    />
+        description={
+          pendingAction?.type === "delete"
+            ? `Are you sure you want to delete ${pendingAction.item.medicineName}?`
+            : `Mark ${pendingAction?.item.medicineName} as out of stock?`
+        }
+        confirmLabel={
+          pendingAction?.type === "delete" ? "Delete Medicine" : "Confirm"
+        }
+        confirmVariant={pendingAction?.type === "delete" ? "danger" : "primary"}
+        onConfirm={handleConfirm}
+        onCancel={closeAction}
+      />
+    </>
   );
 }

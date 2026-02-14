@@ -1,12 +1,12 @@
 "use client";
 
-import { EditMedicineFormValues } from "@/types/pharmacyTypes";
+import { MedicineFormValues } from "@/types/pharmacyTypes";
 import { clsx } from "clsx";
 import { FieldArrayWithId, UseFormRegister } from "react-hook-form";
 
 interface MedicineUsageNotesProps {
-  fields: FieldArrayWithId<EditMedicineFormValues, "usageNotes">[];
-  register: UseFormRegister<EditMedicineFormValues>;
+  fields: FieldArrayWithId<MedicineFormValues, "usageNotes">[];
+  register: UseFormRegister<MedicineFormValues>;
   append: () => void;
   remove: (index: number) => void;
 }

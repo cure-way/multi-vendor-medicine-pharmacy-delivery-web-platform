@@ -6,35 +6,46 @@ import {
 } from "@/types/pharmacyTypes";
 
 export const INVENTORY_STATUSES = [
-  "All Status",
-  "In Stock",
-  "Low Stock",
-  "Out Of Stock",
+  { label: "All Status", value: "all" },
+  { label: "In Stock", value: "in" },
+  { label: "Low Stock", value: "low" },
+  { label: "Out Of Stock", value: "out" },
 ];
 
-export const ORDER_STATUSES = ["All", "New", "Past", "Delivered"];
+export const ORDER_STATUSES = [
+  { label: "All", value: "All" },
+  { label: "New", value: "New" },
+  { label: "Pending", value: "Pending" },
+  { label: "Delivered", value: "Delivered" },
+  { label: "Cancelled", value: "Cancelled" },
+];
+
+export const ROWS_PER_PAGE_OPTIONS = [
+  { label: "5", value: "5" },
+  { label: "10", value: "10" },
+  { label: "20", value: "20" },
+];
 
 export const inventoryColumns: Column<InventoryItem>[] = [
   { key: "id", header: "ID" },
   { key: "medicineName", header: "Medicine" },
-  { key: "brand", header: "Brand" },
-  { key: "stock", header: "Stock" },
-  { key: "expiryDate", header: "Expiration" },
+  { key: "brand", header: "Brand", hideOnMobile: true },
+  { key: "stock", header: "Stock", hideOnMobile: true },
+  { key: "expiryDate", header: "Expiration", hideOnMobile: true },
   { key: "status", header: "Status" },
   { key: "action", header: "" },
 ];
 
 export const INVENTORY_ACTIONS: RowAction[] = [
   { id: "view", label: "View details" },
-  { id: "mark_low", label: "Mark as low stock" },
   { id: "mark_out", label: "Mark as out of stock" },
   { id: "delete", label: "Delete medicine", danger: true },
 ];
 
 export const orderColumns: readonly Column<OrderRow>[] = [
   { key: "id", header: "Order ID" },
-  { key: "customer", header: "Customer" },
-  { key: "medicine", header: "Medicine", hideOnMobile: true },
+  { key: "customer", header: "Customer", hideOnMobile: true },
+  { key: "items", header: "Medicine", hideOnMobile: true },
   { key: "total", header: "Total" },
   { key: "date", header: "Date", hideOnMobile: true },
   { key: "status", header: "Status" },

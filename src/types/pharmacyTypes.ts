@@ -21,7 +21,7 @@ export interface InventoryItem {
 
   stock: number;
   minStock: number;
-  status: "in" | "low" | "out";
+  status: InventoryStatus;
 
   batchNumber: string;
   expiryDate: string;
@@ -30,7 +30,6 @@ export interface InventoryItem {
   purchasePrice: number;
   sellingPrice: number;
 
-  /** NEW */
   imageUrl?: string;
   usageNotes?: string[];
 }
@@ -55,34 +54,37 @@ export interface ActionItem<TActionId extends string> {
   danger?: boolean;
   disabled?: boolean;
 }
-
+export interface OrderItem {
+  inventoryId: string;
+  quantity: number;
+  unitPrice: number;
+}
 export interface OrderRow {
   id: string;
-  inventoryId: string;
   customer: string;
-  medicine: string;
-  total: string;
+  items: OrderItem[];
+  total: number;
   date: string;
-  status: "Delivered" | "Pending" | "Cancelled";
+  status: "Delivered" | "Pending" | "New" | "Cancelled";
 }
 
-export interface UsageNote {
-  value: string;
-}
-export interface EditMedicinePayload {
+export interface MedicineFormValues {
   medicineName: string;
   category: string;
   stock: number;
   expiryDate: string;
-  usageNotes: string[];
-  imageFile?: File | null;
-}
-export interface EditMedicineFormValues {
-  medicineName: string;
-  category: string;
-  stock: number;
-  expiryDate: string;
+  status: InventoryStatus;
   usageNotes: { value: string }[];
+  imageUrl?: File | null;
+}
+export interface MedicineFormPayload {
+  medicineName: string;
+  category: string;
+  stock: number;
+  expiryDate: string;
+  status: InventoryStatus;
+  usageNotes: string[];
+  imageUrl?: File | null;
 }
 
 export interface OrderStatusDatum {
@@ -100,6 +102,7 @@ export type Day = (typeof DAY_ORDER)[number];
 export interface TopMedicine {
   id: string;
   medicine: string;
+  sold: number;
   orders: number;
 }
 
@@ -109,7 +112,10 @@ export interface OrdersStatusModel {
   outerData: { name: string; value: number }[];
   innerData: { name: string; value: number }[];
 }
-
+export interface MatchedOrder {
+  order: OrderRow;
+  matchedItems: InventoryItem[];
+}
 export interface Pharmacy {
   id: string;
   name: string;

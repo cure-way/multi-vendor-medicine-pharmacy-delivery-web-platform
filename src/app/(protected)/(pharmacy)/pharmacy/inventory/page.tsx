@@ -1,21 +1,22 @@
 import { inventoryData } from "@/services/pharmacyData";
 import AlertBanner from "@/components/pharmacy/inventory/AlertBanner";
-import InventoryFilters from "@/components/pharmacy/inventory/InventoryFilters";
-import InventoryTable from "@/components/pharmacy/inventory/InventoryTable";
-
 import PageHeader from "@/components/pharmacy/shared/PageHeader";
 import { FiLayers } from "react-icons/fi";
+import { getInventoryAlerts } from "@/services/pharmacyService";
+import InventorySection from "@/components/pharmacy/inventory/InventorySection";
 
 export default function InventoryPage() {
+  const alert = getInventoryAlerts(inventoryData);
+
   return (
     <div className="space-y-6">
       <PageHeader title="Inventory Management" icon={FiLayers} />
-      <AlertBanner
-        title="Medication Out Of Stock Alert"
-        description="A very limited quantity of Panadol remains. Please restock immediately to ensure continued order fulfillment."
-      />
-      <InventoryFilters />
-      <InventoryTable data={inventoryData} />
+
+      {alert && (
+        <AlertBanner title={alert.title} description={alert.description} />
+      )}
+
+      <InventorySection data={inventoryData} />
     </div>
   );
 }

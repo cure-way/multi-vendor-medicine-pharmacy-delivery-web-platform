@@ -2,8 +2,8 @@
 
 import clsx from "clsx";
 import { X } from "lucide-react";
-import { EditMedicinePayload, InventoryItem } from "@/types/pharmacyTypes";
-import EditMedicineForm from "./edit-form/EditMedicineForm";
+import { MedicineFormPayload, InventoryItem } from "@/types/pharmacyTypes";
+import EditMedicineForm from "./EditMedicineForm";
 
 interface Props {
   open: boolean;
@@ -12,8 +12,7 @@ interface Props {
 }
 
 export default function EditMedicineDrawer({ open, onClose, item }: Props) {
-  function handleSave(data: EditMedicinePayload) {
-    // await updateInventoryItem(item.id, data)
+  function handleSave(data: MedicineFormPayload) {
     onClose();
   }
 
@@ -23,7 +22,7 @@ export default function EditMedicineDrawer({ open, onClose, item }: Props) {
       <div
         onClick={onClose}
         className={clsx(
-          "z-999 fixed inset-0 bg-black/40 transition-opacity",
+          "z-50 fixed inset-0 bg-black/40 w-screen h-screen transition-opacity",
           open ? "opacity-100" : "pointer-events-none opacity-0",
         )}
       />

@@ -9,26 +9,45 @@ import {
 } from "@/types/pharmacyTypes";
 import { DAY_ORDER } from "@/utils/pharmacyConstants";
 
-export function getTopSellingMedicines(orders: OrderRow[]): TopMedicine[] {
+export function getTopSellingMedicines(
+  orders: OrderRow[],
+  inventory: InventoryItem[],
+): TopMedicine[] {
+  const inventoryMap = Object.fromEntries(
+    inventory.map((item) => [item.id, item]),
+  );
+
   const count: Record<
     string,
-    { id: string; medicine: string; orders: number }
+    { id: string; medicine: string; sold: number; orders: number }
   > = {};
 
-  orders.forEach((o) => {
-    if (!count[o.medicine]) {
-      count[o.medicine] = {
-        id: o.inventoryId,
-        medicine: o.medicine,
-        orders: 0,
-      };
-    }
+  for (const order of orders) {
+    const seenInThisOrder = new Set<string>();
 
-    count[o.medicine].orders += 1;
-  });
+    for (const item of order.items) {
+      if (!count[item.inventoryId]) {
+        count[item.inventoryId] = {
+          id: item.inventoryId,
+          medicine: inventoryMap[item.inventoryId]?.medicineName ?? "Unknown",
+          sold: 0,
+          orders: 0,
+        };
+      }
+
+      // Count quantity sold
+      count[item.inventoryId].sold += item.quantity;
+
+      // Count distinct orders
+      if (!seenInThisOrder.has(item.inventoryId)) {
+        count[item.inventoryId].orders += 1;
+        seenInThisOrder.add(item.inventoryId);
+      }
+    }
+  }
 
   return Object.values(count)
-    .sort((a, b) => b.orders - a.orders)
+    .sort((a, b) => b.sold - a.sold)
     .slice(0, 4);
 }
 
@@ -40,12 +59,14 @@ export function getMostRequestedCategory(
 
   const counts: Record<string, number> = {};
 
-  orders.forEach((order) => {
-    const category = inventoryMap.get(order.inventoryId);
-    if (!category) return;
+  for (const order of orders) {
+    for (const item of order.items) {
+      const category = inventoryMap.get(item.inventoryId);
+      if (!category) continue;
 
-    counts[category] = (counts[category] ?? 0) + 1;
-  });
+      counts[category] = (counts[category] ?? 0) + item.quantity;
+    }
+  }
 
   return Object.entries(counts).sort((a, b) => b[1] - a[1])[0]?.[0];
 }
@@ -144,5 +165,69 @@ export function buildOrdersStatusModel(
       { name: "Pending", value: pendingPercent },
       { name: "Remaining", value: 100 - pendingPercent },
     ],
+  };
+}
+
+export function getOrdersSummary(orders: OrderRow[]): {
+  totalToday: number;
+  delivered: number;
+} {
+  // For now we assume all ORDERS are "today"
+  // Later we can filter by real date
+
+  const totalToday = orders.length;
+
+  const delivered = orders.filter(
+    (order) => order.status === "Delivered",
+  ).length;
+
+  return {
+    totalToday,
+    delivered,
+  };
+}
+
+export function getInventoryAlerts(
+  items: InventoryItem[],
+): { title: string; description: string } | null {
+  const outOfStockCount = items.filter((item) => item.stock === 0).length;
+
+  if (outOfStockCount === 0) return null;
+
+  return {
+    title: "Medication Out Of Stock Alert",
+    description: `${outOfStockCount} medication${
+      outOfStockCount > 1 ? "s are" : " is"
+    } currently out of stock.`,
+  };
+}
+
+export function getReportStats(orders: OrderRow[]): {
+  completionRate: number;
+  pendingRate: number;
+  totalOrders: number;
+  deliveredCount: number;
+} {
+  const totalOrders = orders.length;
+
+  const deliveredCount = orders.filter(
+    (order) => order.status === "Delivered",
+  ).length;
+
+  const pendingCount = orders.filter(
+    (order) => order.status === "Pending",
+  ).length;
+
+  const completionRate =
+    totalOrders === 0 ? 0 : Math.round((deliveredCount / totalOrders) * 100);
+
+  const pendingRate =
+    totalOrders === 0 ? 0 : Math.round((pendingCount / totalOrders) * 100);
+
+  return {
+    completionRate,
+    pendingRate,
+    totalOrders,
+    deliveredCount,
   };
 }

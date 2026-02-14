@@ -5,7 +5,7 @@ import StateGrid from "@/components/pharmacy/report/StateGrid";
 import { TopMedicineCard } from "@/components/pharmacy/report/TopMedicineCard";
 import { WeeklyOrdersBar } from "@/components/pharmacy/report/WeeklyOrdersBar";
 import PageHeader from "@/components/pharmacy/shared/PageHeader";
-import { ORDERS } from "@/services/pharmacyData";
+import { inventoryData, ORDERS } from "@/services/pharmacyData";
 import {
   getOrderStatusData,
   getTopSellingMedicines,
@@ -17,7 +17,7 @@ export default function PharmacyReportPage() {
   const orderStatusData = getOrderStatusData(ORDERS);
   const weeklyOrdersData = getWeeklyOrdersData(ORDERS);
 
-  const topMedicines = getTopSellingMedicines(ORDERS);
+  const topMedicines = getTopSellingMedicines(ORDERS, inventoryData);
 
   return (
     <div className="space-y-6">

@@ -1,26 +1,30 @@
 "use client";
 
+import { ORDERS } from "@/services/pharmacyData";
+import { getOrdersSummary } from "@/services/pharmacyService";
 import { FiFileText, FiBox } from "react-icons/fi";
 
-const CARDS = [
-  {
-    label: "All Orders Today",
-    value: 14,
-    unit: "orders",
-    icon: FiFileText,
-  },
-  {
-    label: "Orders Delivered",
-    value: 6,
-    unit: "orders",
-    icon: FiBox,
-  },
-];
-
 export default function OrdersSummaryCards() {
+  const { totalToday, delivered } = getOrdersSummary(ORDERS);
+
+  const cards = [
+    {
+      label: "All Orders",
+      value: totalToday,
+      unit: "orders",
+      icon: FiFileText,
+    },
+    {
+      label: "Orders Delivered",
+      value: delivered,
+      unit: "orders",
+      icon: FiBox,
+    },
+  ];
+
   return (
     <div className="gap-4 grid sm:grid-cols-2 mb-6">
-      {CARDS.map((card) => {
+      {cards.map((card) => {
         const Icon = card.icon;
 
         return (
