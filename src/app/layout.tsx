@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "../styles/global.css";
 import { Montserrat, Inter } from "next/font/google";
+import { ScrollToTop } from "@/components/shared/ScrollToTop";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -13,7 +14,6 @@ const inter = Inter({
   variable: "--font-inter",
   weight: ["400", "500", "600", "700"],
 });
-
 
 export const metadata: Metadata = {
   title: {
@@ -31,7 +31,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${montserrat.variable} ${inter.variable}`}>{children}</body>
+      <body className={`${montserrat.variable} ${inter.variable}`}>
+        <ScrollToTop />
+        <div id="dropdown-portal" />
+        {children}
+      </body>
     </html>
   );
 }

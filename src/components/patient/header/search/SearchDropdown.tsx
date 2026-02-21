@@ -6,7 +6,7 @@ import { SearchResults } from "./SearchResults";
 import { useSearch } from "@/hooks/search/useSearch";
 
 export function SearchDropdown() {
-  const { query, open, appliedFilters } = useSearchContext();
+  const { query, open, setOpen, appliedFilters } = useSearchContext();
   const { results, isLoading, error } = useSearch(query, appliedFilters);
 
   const isTyping = query.length > 0;
@@ -14,16 +14,35 @@ export function SearchDropdown() {
   if (!open) return null;
 
   return (
-    <div className="absolute md:absolute top-full left-0 right-0 z-50 bg-white shadow-lg mt-2 border md:border rounded-xl max-h-[60vh] md:max-h-[400px] overflow-y-auto w-full md:min-w-[500px]">
-      {isLoading && <div className="p-4 text-gray-500 text-sm">Searching…</div>}
+    <>
+      {/* Backdrop blur / dim overlay */}
+      <div
+        className="fixed inset-0 bg-black/30 backdrop-blur-[2px] z-40"
+        aria-hidden="true"
+        onClick={() => setOpen(false)}
+      />
 
-      {error && !isLoading && (
-        <div className="p-4 text-red-500 text-sm">{error}</div>
-      )}
+      {/* Dropdown panel */}
+      <div
+        id="search-dropdown"
+        className="absolute top-full left-0 right-0 z-50 bg-white shadow-lg mt-2 border rounded-xl max-h-[60vh] md:max-h-100 overflow-y-auto w-full md:min-w-125"
+        role={isTyping ? "listbox" : "dialog"}
+        aria-label={isTyping ? "Search suggestions" : "Search options"}
+      >
+        {isLoading && (
+          <div className="p-4 text-neutral-dark text-sm">Searching…</div>
+        )}
 
-      {!isTyping && <SearchDefaultState />}
+        {error && !isLoading && (
+          <div className="p-4 text-error text-sm">{error}</div>
+        )}
 
-      {isTyping && !isLoading && !error && <SearchResults results={results} />}
-    </div>
+        {!isTyping && <SearchDefaultState />}
+
+        {isTyping && !isLoading && !error && (
+          <SearchResults results={results} />
+        )}
+      </div>
+    </>
   );
 }

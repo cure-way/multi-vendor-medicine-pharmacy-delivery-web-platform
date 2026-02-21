@@ -1,7 +1,11 @@
-export default function AdminNotificationsPage() {
-  return (
-    <main className="p-6">
-      <h1 className="text-2xl font-semibold">Admin Notifications</h1>
-    </main>
-  );
+import type { Metadata } from "next";
+import AdminNotificationsPage from "./page.client";
+
+export const metadata: Metadata = {
+  title: "Notifications",
+  description: "View and manage system notifications and alerts",
+};
+
+export default function Page() {
+  return <AdminNotificationsPage />;
 }

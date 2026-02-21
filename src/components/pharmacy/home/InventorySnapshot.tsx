@@ -2,27 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import InventoryItemCard from "./InventoryItemCard";
-
-const INVENTORY_ITEMS = [
-  {
-    id: "M-1",
-    title: "Vitamin A",
-    extra: "+5 more",
-    image: "/medicines/vitamin-a.png",
-  },
-  {
-    id: "M-2",
-    title: "Vitamin D",
-    extra: "+4 more",
-    image: "/medicines/vitamin-d.png",
-  },
-  {
-    id: "M-3",
-    title: "Antibiotic",
-    extra: "+2 more",
-    image: "/medicines/antibiotic.png",
-  },
-];
+import { inventoryData } from "@/services/pharmacyData";
 
 export default function InventorySnapshot() {
   const router = useRouter();
@@ -43,12 +23,12 @@ export default function InventorySnapshot() {
       </div>
 
       <div className="gap-4 grid sm:grid-cols-2 lg:grid-cols-3">
-        {INVENTORY_ITEMS.map((item) => (
+        {inventoryData.slice(0, 3).map((item) => (
           <InventoryItemCard
             key={item.id}
             id={item.id}
-            title={item.title}
-            extra={item.extra}
+            title={item.medicineName}
+            extra={item.batchNumber}
           />
         ))}
       </div>

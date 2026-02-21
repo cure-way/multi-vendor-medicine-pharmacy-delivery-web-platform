@@ -7,7 +7,7 @@ import { HiX } from "react-icons/hi";
 import { motion } from "framer-motion";
 import { SearchProvider } from "@/contexts/SearchContext";
 
-import { HeaderTopbar } from "./header-topbar";
+import { AnnouncementsBar } from "./AnnouncementsBar";
 import { HeaderSearch } from "./header-search";
 import { HeaderActions, MobileMenu } from "./header-actions";
 import { HeaderQuickChips } from "./header-quick-chips";
@@ -46,7 +46,7 @@ export function PatientHeader({
         className="bg-white w-full sticky top-0 z-40"
       >
         {/* Top bar: Help line + Announcements + Currency/Language */}
-        <HeaderTopbar />
+        <AnnouncementsBar />
 
         {/* Main header: Logo + Search + Actions */}
         <div className="bg-white border-b border-black/10 flex items-center justify-between gap-2 md:gap-4 lg:gap-6 px-3 md:px-6 py-2 rounded-bl-3xl rounded-br-3xl">

@@ -1,10 +1,10 @@
-import { PatientHeader } from "@/components/patient";
+import { HomeHeader } from "@/components/patient/header";
 import { getPatientSession } from "@/lib/auth";
 
 /**
  * Patient Layout
  * Unified layout for all patient-facing pages (main website UI).
- * Renders PatientHeader and wraps children with a container.
+ * Renders the HomeHeader globally on every patient route.
  *
  * This layout is used for BOTH:
  * - Guest users (sign in/up buttons shown)
@@ -20,9 +20,8 @@ export default async function PatientLayout({
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <PatientHeader
+      <HomeHeader
         isAuthenticated={session !== null}
-        notificationCount={0} // TODO: Fetch from notifications API
         cartCount={0} // TODO: Fetch from cart API
       />
       <main className="flex-1">{children}</main>

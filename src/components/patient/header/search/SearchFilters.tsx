@@ -46,6 +46,7 @@ export function SearchFilters({
 
       <div className="flex gap-2">
         <button
+          type="button"
           className="flex-1 hover:bg-gray-100 py-2 border rounded-lg text-gray-700 text-sm"
           onClick={onClear}
         >
@@ -53,7 +54,8 @@ export function SearchFilters({
         </button>
 
         <button
-          className="flex-1 bg-blue-600 hover:bg-blue-700 py-2 rounded-lg text-white text-sm"
+          type="button"
+          className="flex-1 bg-primary hover:bg-primary-hover py-2 rounded-lg text-white text-sm"
           onClick={onApply}
         >
           Apply filters

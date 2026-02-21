@@ -1,106 +1,169 @@
 "use client";
 
-import { SearchSection } from "./SearchSection";
-import { FaFilter } from "react-icons/fa";
-import { SearchFilters } from "./SearchFilters";
-import { useFilteredSearch } from "@/hooks/search/useFilteredSearch";
-import { useState } from "react";
-import { TabButton } from "./TabButton";
+import { useEffect, useMemo } from "react";
 import { SearchResult } from "@/types/search";
 import { useSearchContext } from "@/contexts/SearchContext";
+import { useRouter } from "next/navigation";
+import { ArrowUpLeft } from "lucide-react";
 
 interface SearchResultsProps {
   results: SearchResult[];
 }
 
 export function SearchResults({ results }: SearchResultsProps) {
-  const { appliedFilters, setAppliedFilters, handleSelect } =
+  const { query, activeIndex, setItemCount, handleSelect, setOpen } =
     useSearchContext();
+  const router = useRouter();
 
-  const medicineResults = results.filter((r) => r.type === "medicine");
-  const pharmacyResults = results.filter((r) => r.type === "pharmacy");
-
-  const {
-    filtersOpen,
-    activeFilters,
-    filteredMedicines,
-    openFilters,
-    applyFilters,
-    clearAllFilters,
-    toggleFilter,
-  } = useFilteredSearch(medicineResults, appliedFilters, setAppliedFilters);
-
-  const [activeTab, setActiveTab] = useState<"medicines" | "pharmacies">(
-    "medicines",
+  const medicineResults = useMemo(
+    () => results.filter((r) => r.type === "medicine").slice(0, 3),
+    [results],
+  );
+  const pharmacyResults = useMemo(
+    () => results.filter((r) => r.type === "pharmacy").slice(0, 2),
+    [results],
   );
 
-  const isFiltering = appliedFilters.length > 0;
+  // Flat list for keyboard navigation
+  const flatItems: SearchResult[] = useMemo(
+    () => [...medicineResults, ...pharmacyResults],
+    [medicineResults, pharmacyResults],
+  );
+
+  // Report item count to context (+ 1 for "Show all results" CTA)
+  useEffect(() => {
+    setItemCount(flatItems.length + 1);
+  }, [flatItems.length, setItemCount]);
+
+  // Handle Enter on highlighted item
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Enter" || activeIndex < 0) return;
+      e.preventDefault();
+      if (activeIndex < flatItems.length) {
+        handleSelect(flatItems[activeIndex]);
+      } else {
+        // "Show all results" CTA
+        setOpen(false);
+        router.push(`/search?q=${encodeURIComponent(query)}`);
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [activeIndex, flatItems, handleSelect, query, router, setOpen]);
+
+  const handleShowAll = () => {
+    setOpen(false);
+    router.push(`/search?q=${encodeURIComponent(query)}`);
+  };
+
+  if (results.length === 0) {
+    return (
+      <div className="p-4 text-center text-gray-500 text-sm">
+        No results found
+      </div>
+    );
+  }
+
+  let globalIdx = 0;
 
   return (
-    <>
-      {results.length !== 0 ? (
-        <div className="space-y-3 md:space-y-4 p-3 md:p-4">
-          <button
-            className="flex items-center gap-2 px-3 py-2 border rounded-lg text-xs md:text-sm hover:bg-gray-50 transition-colors"
-            onClick={openFilters}
-          >
-            Filters <FaFilter className="w-3 h-3 md:w-3.5 md:h-3.5" />
-            {appliedFilters.length > 0 && (
-              <span className="bg-gray-200 px-2 py-0.5 rounded-full text-xs">
-                {appliedFilters.length}
-              </span>
-            )}
-          </button>
+    <div className="p-3 md:p-4">
+      <p className="font-semibold text-black text-sm mb-3">Suggestions</p>
 
-          {filtersOpen && (
-            <SearchFilters
-              open={filtersOpen}
-              activeFilters={activeFilters}
-              onToggle={(key) => toggleFilter(key)}
-              onApply={applyFilters}
-              onClear={clearAllFilters}
-            />
-          )}
-          {!isFiltering && (
-            <div className="flex items-center gap-2 pb-2 border-b">
-              <TabButton
-                label="Medicines"
-                isActive={activeTab === "medicines"}
-                onClick={() => setActiveTab("medicines")}
-              />
-
-              <span className="text-gray-300">/</span>
-
-              <TabButton
-                label="Pharmacies"
-                isActive={activeTab === "pharmacies"}
-                onClick={() => setActiveTab("pharmacies")}
-              />
-            </div>
-          )}
-          {activeTab === "medicines" && (
-            <SearchSection
-              title="Medicines"
-              icon="💊"
-              items={filteredMedicines}
-              offset={0}
-              onSelect={handleSelect}
-            />
-          )}
-          {activeTab === "pharmacies" && !isFiltering && (
-            <SearchSection
-              title="Pharmacies"
-              icon="📍"
-              items={pharmacyResults}
-              offset={0}
-            />
-          )}
-        </div>
-      ) : (
-        <div className="p-4 text-center text-gray-500 text-sm">
-          No results found
+      {/* Medicines Section */}
+      {medicineResults.length > 0 && (
+        <div className="mb-3">
+          <p className="text-primary font-medium text-xs mb-2 px-2">
+            Medicines
+          </p>
+          <ul className="space-y-0.5">
+            {medicineResults.map((item) => {
+              const idx = globalIdx++;
+              return (
+                <li
+                  key={item.id}
+                  id={`search-item-${idx}`}
+                  className={`flex items-center justify-between px-2 py-2.5 rounded-lg cursor-pointer transition-colors ${
+                    idx === activeIndex
+                      ? "bg-primary-light"
+                      : "hover:bg-gray-50"
+                  }`}
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => handleSelect(item)}
+                  role="option"
+                  aria-selected={idx === activeIndex}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-base">💊</span>
+                    <div>
+                      <p className="font-semibold text-black text-sm">
+                        {item.title}
+                      </p>
+                      <p className="text-gray-500 text-xs">{item.subtitle}</p>
+                    </div>
+                  </div>
+                  <ArrowUpLeft className="w-4 h-4 text-gray-400 shrink-0" />
+                </li>
+              );
+            })}
+          </ul>
         </div>
       )}
-    </>
+
+      {/* Pharmacies Section */}
+      {pharmacyResults.length > 0 && (
+        <div className="mb-3">
+          <p className="text-primary font-medium text-xs mb-2 px-2">
+            Pharmacies
+          </p>
+          <ul className="space-y-0.5">
+            {pharmacyResults.map((item) => {
+              const idx = globalIdx++;
+              return (
+                <li
+                  key={item.id}
+                  id={`search-item-${idx}`}
+                  className={`flex items-center justify-between px-2 py-2.5 rounded-lg cursor-pointer transition-colors ${
+                    idx === activeIndex
+                      ? "bg-primary-light"
+                      : "hover:bg-gray-50"
+                  }`}
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => handleSelect(item)}
+                  role="option"
+                  aria-selected={idx === activeIndex}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-base">🏥</span>
+                    <div>
+                      <p className="font-semibold text-black text-sm">
+                        {item.title}
+                      </p>
+                      <p className="text-gray-500 text-xs">{item.subtitle}</p>
+                    </div>
+                  </div>
+                  <ArrowUpLeft className="w-4 h-4 text-gray-400 shrink-0" />
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
+
+      {/* Show all results link */}
+      <button
+        type="button"
+        className={`w-full text-center py-3 text-sm border-t border-gray-100 transition-colors ${
+          activeIndex === flatItems.length
+            ? "text-primary bg-primary-light"
+            : "text-gray-500 hover:text-primary"
+        }`}
+        onMouseDown={(e) => e.preventDefault()}
+        onClick={handleShowAll}
+      >
+        Show all results for &ldquo;{query}&rdquo;
+      </button>
+    </div>
   );
 }

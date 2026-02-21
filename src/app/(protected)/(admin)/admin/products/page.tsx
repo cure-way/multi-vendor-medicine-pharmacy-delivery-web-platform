@@ -1,7 +1,11 @@
-export default function AdminProductsPage() {
-  return (
-    <main className="p-6">
-      <h1 className="text-2xl font-semibold">Admin Products</h1>
-    </main>
-  );
+import type { Metadata } from "next";
+import AdminProductsPage from "./page.client";
+
+export const metadata: Metadata = {
+  title: "Products",
+  description: "View and manage medicine products and inventory",
+};
+
+export default function Page() {
+  return <AdminProductsPage />;
 }

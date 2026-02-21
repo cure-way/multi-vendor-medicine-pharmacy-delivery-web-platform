@@ -1,7 +1,11 @@
-export default function AdminSettingsProfilePage() {
-  return (
-    <main className="p-6">
-      <h1 className="text-2xl font-semibold">Admin Settings Profile</h1>
-    </main>
-  );
+import type { Metadata } from "next";
+import AdminSettingsProfilePage from "./page.client";
+
+export const metadata: Metadata = {
+  title: "Profile Settings",
+  description: "Manage your admin profile information",
+};
+
+export default function Page() {
+  return <AdminSettingsProfilePage />;
 }
