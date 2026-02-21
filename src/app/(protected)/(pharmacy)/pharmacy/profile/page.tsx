@@ -1,7 +1,10 @@
-export default function PharmacyProfilePage() {
-  return (
-    <main className="p-6">
-      <h1 className="text-2xl font-semibold">Pharmacy Profile</h1>
-    </main>
-  );
+import PharmacyProfilePage from "@/components/pharmacy/home/PharmacyProfilePage";
+
+export const metadata = {
+  title: "Profile | Cure-Way Pharmacy",
+  description: "Manage your pharmacy profile and settings",
+};
+
+export default function ProfilePage() {
+  return <PharmacyProfilePage />;
 }
