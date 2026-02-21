@@ -10,3 +10,20 @@ export interface Order {
   estimatedDelivery?: string; 
   status: OrderStatus;
 }
+
+export interface Notification {
+  id: string;
+  type: "order" | "ready" | "prescription" | "system" | "stock";
+  title: string;
+  message: string;
+  read: boolean;
+  createdAt: string;
+  orderId?: string;
+}
+
+export interface PrescriptionRequest {
+  patientId: string;
+  pharmacyId: string;
+  notes?: string;
+  files?: File[];
+}
