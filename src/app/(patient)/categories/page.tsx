@@ -1,39 +1,27 @@
-/**
- * Categories Page
- * Browse medicine categories (public, no auth required)
- * Server Component - data fetched at request time
- */
+import CategoriesHeader from "@/components/patient/categories/CategoriesHeader";
+import CategoryGrid from "@/components/patient/categories/CategoryGrid";
+import FeaturedCategories from "@/components/patient/categories/FeaturedCategories";
+import MostSalesSection from "@/components/patient/categories/MostSalesSection";
+import RecommendedSection from "@/components/patient/categories/RecommendedSection";
+import { categories, medicines } from "@/services/categories.mock";
 import {
-  FeaturedCategories,
-  AllCategories,
   getFeaturedCategories,
-  getAllCategories,
-} from "@/components/features/category";
+  getRecommendedMedicines,
+  getTopSellingCategories,
+} from "@/services/categoriesService";
 
 export default async function CategoriesPage() {
-  const [featuredCategories, allCategories] = await Promise.all([
-    getFeaturedCategories(),
-    getAllCategories(),
-  ]);
+  const featured = getFeaturedCategories(categories);
+  const mostSales = getTopSellingCategories(categories, medicines);
+  const recommended = getRecommendedMedicines(medicines);
 
   return (
-    <div className="container mx-auto px-4 py-6">
-      <h1 className="text-t-30 font-bold text-neutral-darker mb-4">
-        Categories
-      </h1>
-      <p className="text-neutral mb-6">Browse medicines by category</p>
-
-      {featuredCategories.length > 0 && (
-        <FeaturedCategories categories={featuredCategories} />
-      )}
-
-      {allCategories.length > 0 ? (
-        <AllCategories categories={allCategories} />
-      ) : (
-        <p className="text-neutral text-center py-8">
-          No categories available at the moment.
-        </p>
-      )}
+    <div className="space-y-10 px-6 sm:px-10 lg:px-16 py-8">
+      <CategoriesHeader />
+      <FeaturedCategories categories={featured} />
+      <MostSalesSection categories={mostSales} />
+      <CategoryGrid categories={categories} />
+      <RecommendedSection medicines={recommended} />
     </div>
   );
 }
